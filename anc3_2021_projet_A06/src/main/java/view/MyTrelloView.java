@@ -4,10 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +16,8 @@ import model.Card;
 import model.Column;
 import mvvm.ViewModel;
 import model.Direction;
+
+import java.util.Optional;
 
 public class MyTrelloView extends VBox {
     TextField title;
@@ -107,19 +106,23 @@ public class MyTrelloView extends VBox {
                 Button up = new Button("⬆");
                 borderPane.setTop(up);
                 BorderPane.setAlignment(up, Pos.TOP_CENTER);
+                up.setOnAction(event -> viewModel.moveCard(getItem(), Direction.UP));
 
 
                 Button right = new Button("➡");
                 borderPane.setRight(right);
+                right.setOnAction(event -> viewModel.moveCard(getItem(), Direction.RIGHT));
 
 
                 Button down = new Button("⬇");
                 borderPane.setBottom(down);
                 BorderPane.setAlignment(down, Pos.BOTTOM_CENTER);
+                down.setOnAction(event -> viewModel.moveCard(getItem(), Direction.DOWN));
 
 
                 Button left = new Button("⬅");
                 borderPane.setLeft(left);
+                left.setOnAction(event -> viewModel.moveCard(getItem(), Direction.LEFT));
 
 
                 field = new TextField();
@@ -150,9 +153,26 @@ public class MyTrelloView extends VBox {
                             field.setEditable(false);
                         }
                     });
+                    ContextMenu contextMenu = new ContextMenu();
+                    MenuItem delete = new MenuItem("Supprimer");
+                    delete.setOnAction(actionEvent -> {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Confirmation");
+                        alert.setHeaderText("Confirmation");
+                        alert.setContentText("Supprimer  " + card.getTitle() + "?");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.isPresent() && result.get() == ButtonType.OK) {
+                            card.getColumn().getCards().remove(card);
+                        }
+                    });
 
+                    contextMenu.getItems().add(delete);
+                    borderPane.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(
+                            borderPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()
+                    ));
 
-                }
+                } else
+                    setGraphic(null);
             }
         }
     }
