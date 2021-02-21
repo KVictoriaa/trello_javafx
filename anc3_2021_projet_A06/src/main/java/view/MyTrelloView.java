@@ -147,7 +147,26 @@ public class MyTrelloView extends VBox {
                             field.setEditable(false);
                         }
                     });
-                }
+                    ContextMenu contextMenu = new ContextMenu();
+                    MenuItem delete = new MenuItem("Supprimer");
+                    delete.setOnAction(actionEvent -> {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Confirmation");
+                        alert.setHeaderText("Confirmation");
+                        alert.setContentText("Supprimer  " + card.getTitle() + "?");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.isPresent() && result.get() == ButtonType.OK) {
+                            card.getColumn().getCards().remove(card);
+                        }
+                    });
+
+                    contextMenu.getItems().add(delete);
+                    borderPane.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(
+                            borderPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()
+                    ));
+
+                } else
+                    setGraphic(null);
             }
         }
     }
