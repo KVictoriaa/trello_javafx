@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
@@ -68,6 +69,24 @@ public class MyTrelloView extends VBox {
         this.boardView = boardView;
     }
 
+    final class ColumnCell extends ListCell<Column> {
+        VBox vbox;
+        TextField field;
+        HBox hbox = new HBox();
+
+        ColumnCell() {
+            super();
+            vbox = new VBox();
+            field = new TextField();
+            field.setEditable(false);
+            Button left = new Button("⬅");
+            Button right = new Button("➡");
+            vbox.getChildren().setAll(hbox);
+            hbox.getChildren().setAll(left, field, right);
+            right.setOnAction(event -> viewModel.moveColumn(getItem(), Direction.RIGHT));
+            left.setOnAction(event -> viewModel.moveColumn(getItem(), Direction.LEFT));
+
+        }
 
     final class CardCell extends ListCell<Card> {
         BorderPane borderPane;
