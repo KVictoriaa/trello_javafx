@@ -17,7 +17,12 @@ public class Board {
         setTitle("Project Trello");
 
     }
-
+    public List<Column> getColumns() {
+        return this.columns;
+    }
+    public List<Card> getCards() {
+        return cards;
+    }
     public String getTitle() {
         return title;
     }
