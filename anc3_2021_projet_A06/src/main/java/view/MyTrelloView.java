@@ -51,6 +51,13 @@ public class MyTrelloView extends VBox {
         boardView.setCellFactory(listView -> new ColumnCell());
         getBoardView().setOrientation(Orientation.HORIZONTAL);
         getChildren().addAll(getTitle(), boardView);
+
+        boardView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (event.getClickCount() == 2) {
+                Column lastColumn = viewModel.getColumns().get(viewModel.getColumns().size() - 1);
+                viewModel.addColumn(new Column("colonne", lastColumn.getPosition() + 1));
+            }
+        });
     }
 
     public TextField getTitle() {
