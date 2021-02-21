@@ -100,19 +100,23 @@ public class MyTrelloView extends VBox {
                 Button up = new Button("⬆");
                 borderPane.setTop(up);
                 BorderPane.setAlignment(up, Pos.TOP_CENTER);
+                up.setOnAction(event -> viewModel.moveCard(getItem(), Direction.UP));
 
 
                 Button right = new Button("➡");
                 borderPane.setRight(right);
+                right.setOnAction(event -> viewModel.moveCard(getItem(), Direction.RIGHT));
 
 
                 Button down = new Button("⬇");
                 borderPane.setBottom(down);
                 BorderPane.setAlignment(down, Pos.BOTTOM_CENTER);
+                down.setOnAction(event -> viewModel.moveCard(getItem(), Direction.DOWN));
 
 
                 Button left = new Button("⬅");
                 borderPane.setLeft(left);
+                left.setOnAction(event -> viewModel.moveCard(getItem(), Direction.LEFT));
 
 
                 field = new TextField();
@@ -143,8 +147,6 @@ public class MyTrelloView extends VBox {
                             field.setEditable(false);
                         }
                     });
-
-
                 }
             }
         }
