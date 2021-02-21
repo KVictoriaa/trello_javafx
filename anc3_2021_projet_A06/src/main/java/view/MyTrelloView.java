@@ -75,9 +75,91 @@ public class MyTrelloView extends VBox {
         this.boardView = boardView;
     }
 
+    final class CardCell extends ListCell<Card> {
+        BorderPane borderPane;
+        TextField field;
+
+
+        CardCell() {
+            super();
+            borderPane = new BorderPane();
+            Button up = new Button("⬆");
+            borderPane.setTop(up);
+            BorderPane.setAlignment(up, Pos.TOP_CENTER);
+            up.setOnAction(event -> viewModel.moveCard(getItem(), Direction.UP));
+
+
+            Button right = new Button("➡");
+            borderPane.setRight(right);
+            right.setOnAction(event -> viewModel.moveCard(getItem(), Direction.RIGHT));
+
+
+            Button down = new Button("⬇");
+            borderPane.setBottom(down);
+            BorderPane.setAlignment(down, Pos.BOTTOM_CENTER);
+            down.setOnAction(event -> viewModel.moveCard(getItem(), Direction.DOWN));
+
+
+            Button left = new Button("⬅");
+            borderPane.setLeft(left);
+            left.setOnAction(event -> viewModel.moveCard(getItem(), Direction.LEFT));
+
+
+            field = new TextField();
+            field.setEditable(false);
+            borderPane.setCenter(field);
+
+
+        }
+
+        @Override
+        protected void updateItem(Card card, boolean empty) {
+            super.updateItem(card, empty);
+            if (!empty) {
+                field.setText(card.toString());
+                setGraphic(borderPane);
+
+                field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    if (event.getClickCount() == 2) {
+                        field.setEditable(true);
+                    }
+                });
+                field.setOnKeyPressed(event -> {
+                    if (KeyCode.ENTER.equals(event.getCode()) || KeyCode.TAB.equals(event.getCode())) {
+                        card.setTitle(field.getText());
+                        field.setEditable(false);
+                    } else if (KeyCode.ESCAPE.equals(event.getCode())) {
+                        field.setText(card.getTitle());
+                        field.setEditable(false);
+                    }
+                });
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem delete = new MenuItem("Supprimer");
+                delete.setOnAction(actionEvent -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Confirmation");
+                    alert.setContentText("Supprimer  " + card.getTitle() + "?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        card.getColumn().getCards().remove(card);
+                    }
+                });
+
+                contextMenu.getItems().add(delete);
+                borderPane.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(
+                        borderPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()
+                ));
+
+            } else
+                setGraphic(null);
+        }
+    }
+
     final class ColumnCell extends ListCell<Column> {
         VBox vbox;
         TextField field;
+
         HBox hbox = new HBox();
 
         ColumnCell() {
@@ -93,6 +175,7 @@ public class MyTrelloView extends VBox {
             left.setOnAction(event -> viewModel.moveColumn(getItem(), Direction.LEFT));
 
         }
+
         @Override
         protected void updateItem(Column column, boolean empty) {
             super.updateItem(column, empty);
@@ -159,86 +242,7 @@ public class MyTrelloView extends VBox {
                 setGraphic(null);
         }
 
-        final class CardCell extends ListCell<Card> {
-            BorderPane borderPane;
-            TextField field;
-
-
-            CardCell() {
-                super();
-                borderPane = new BorderPane();
-                Button up = new Button("⬆");
-                borderPane.setTop(up);
-                BorderPane.setAlignment(up, Pos.TOP_CENTER);
-                up.setOnAction(event -> viewModel.moveCard(getItem(), Direction.UP));
-
-
-                Button right = new Button("➡");
-                borderPane.setRight(right);
-                right.setOnAction(event -> viewModel.moveCard(getItem(), Direction.RIGHT));
-
-
-                Button down = new Button("⬇");
-                borderPane.setBottom(down);
-                BorderPane.setAlignment(down, Pos.BOTTOM_CENTER);
-                down.setOnAction(event -> viewModel.moveCard(getItem(), Direction.DOWN));
-
-
-                Button left = new Button("⬅");
-                borderPane.setLeft(left);
-                left.setOnAction(event -> viewModel.moveCard(getItem(), Direction.LEFT));
-
-
-                field = new TextField();
-                field.setEditable(false);
-                borderPane.setCenter(field);
-
-
-            }
-
-            @Override
-            protected void updateItem(Card card, boolean empty) {
-                super.updateItem(card, empty);
-                if (!empty) {
-                    field.setText(card.toString());
-                    setGraphic(borderPane);
-
-                    field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                        if (event.getClickCount() == 2) {
-                            field.setEditable(true);
-                        }
-                    });
-                    field.setOnKeyPressed(event -> {
-                        if (KeyCode.ENTER.equals(event.getCode()) || KeyCode.TAB.equals(event.getCode())) {
-                            card.setTitle(field.getText());
-                            field.setEditable(false);
-                        } else if (KeyCode.ESCAPE.equals(event.getCode())) {
-                            field.setText(card.getTitle());
-                            field.setEditable(false);
-                        }
-                    });
-                    ContextMenu contextMenu = new ContextMenu();
-                    MenuItem delete = new MenuItem("Supprimer");
-                    delete.setOnAction(actionEvent -> {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Confirmation");
-                        alert.setHeaderText("Confirmation");
-                        alert.setContentText("Supprimer  " + card.getTitle() + "?");
-                        Optional<ButtonType> result = alert.showAndWait();
-                        if (result.isPresent() && result.get() == ButtonType.OK) {
-                            card.getColumn().getCards().remove(card);
-                        }
-                    });
-
-                    contextMenu.getItems().add(delete);
-                    borderPane.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(
-                            borderPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()
-                    ));
-
-                } else
-                    setGraphic(null);
-            }
-        }
     }
 }
+
 
