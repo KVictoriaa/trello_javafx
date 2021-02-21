@@ -1,39 +1,22 @@
 package model;
 
-public class Column implements Comparable<Column>{
-    private String title;
-    private Integer position;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-    public Column(String title) {
-        setTitle(title);
+public class Column extends MovableItems{
+    private final ObservableList<Card> cards = FXCollections.observableArrayList();
+
+    public Column(String title, Integer position) {
+        super(title, position);
+
     }
 
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getPosition() {
-        return position;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
+    public ObservableList<Card> getCards() {
+        return cards;
     }
 
     @Override
     public String toString() {
-        return title;
-    }
-
-
-    @Override
-    public int compareTo(Column that) {
-        return getPosition().compareTo(that.getPosition());
+        return getTitle();
     }
 }

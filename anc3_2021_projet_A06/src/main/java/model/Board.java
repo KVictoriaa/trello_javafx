@@ -5,7 +5,9 @@ import java.util.*;
 public class Board {
 
     private String title;
+
     private final List<Column> columns = new ArrayList<>();
+    private final List <Card> cards = new ArrayList<>();
 
     public Board() {
         initData();
@@ -13,7 +15,6 @@ public class Board {
 
     private void initData() {
         setTitle("Project Trello");
-        addColumn(new Column("title "));
 
     }
 
