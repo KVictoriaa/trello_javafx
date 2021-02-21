@@ -11,10 +11,7 @@ import java.util.Collections;
 
 public class ViewModel {
 
-
-
-
-        private final Board board;
+    private final Board board;
 
         private ObservableList<Column> columns;
         private ObservableList<Card> cards ;
@@ -40,7 +37,9 @@ public class ViewModel {
         board.moveColumn(column,direction);
         Collections.sort(getColumns());
     }
-
+    public void moveCard(Card card,Direction direction){
+        board.moveCard(card,direction);
+    }
 
     public void addColumn(Column column) {
         columns.add(column);
@@ -50,4 +49,4 @@ public class ViewModel {
         getColumns().remove(column);
     }
 
-    }
+}
