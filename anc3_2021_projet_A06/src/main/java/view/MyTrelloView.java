@@ -1,7 +1,6 @@
 package view;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -93,6 +92,71 @@ public class MyTrelloView extends VBox {
             right.setOnAction(event -> viewModel.moveColumn(getItem(), Direction.RIGHT));
             left.setOnAction(event -> viewModel.moveColumn(getItem(), Direction.LEFT));
 
+        }
+        @Override
+        protected void updateItem(Column column, boolean empty) {
+            super.updateItem(column, empty);
+
+            if (!empty) {
+                field.setText(column.toString());
+                ListView<Card> listView = new ListView<>(column.getCards());
+                listView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    if (event.getClickCount() == 2) {
+
+                        Optional<Card> lastCard = viewModel.getCards().stream().filter(c -> c.getColumn() == column).max(Card::compareTo);
+                        Integer pos = lastCard.isPresent() ? lastCard.get().getPosition() : 1;
+                        Card card = new Card("", pos, column);
+                        viewModel.getCards().add(card);
+                        column.getCards().add(card);
+                    }
+                });
+                listView.setCellFactory(lv -> new CardCell());
+                if (vbox.getChildren().get(vbox.getChildren().size() - 1) instanceof ListView)
+                    vbox.getChildren().set(vbox.getChildren().size() - 1, listView);
+                else
+                    vbox.getChildren().add(listView);
+
+                setGraphic(vbox);
+
+                field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    if (event.getClickCount() == 2) {
+                        field.setEditable(true);
+                    }
+                });
+
+                field.setOnKeyPressed(event -> {
+                    if (KeyCode.ENTER.equals(event.getCode()) || KeyCode.TAB.equals(event.getCode())) {
+                        column.setTitle(field.getText());
+                        field.setEditable(false);
+                    } else if (KeyCode.ESCAPE.equals(event.getCode())) {
+                        field.setText(column.getTitle());
+                        field.setEditable(false);
+                    }
+                });
+
+
+                ContextMenu contextMenu = new ContextMenu();
+
+                MenuItem delete = new MenuItem("Supprimer");
+
+                delete.setOnAction(actionEvent -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Confirmation");
+                    alert.setContentText("Supprimer " + column + "?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        viewModel.remove(column);
+                    }
+                });
+                contextMenu.getItems().add(delete);
+
+                hbox.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(
+                        hbox, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()
+                ));
+
+            } else
+                setGraphic(null);
         }
 
         final class CardCell extends ListCell<Card> {
