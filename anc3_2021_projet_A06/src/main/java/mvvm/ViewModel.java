@@ -5,6 +5,9 @@ import javafx.collections.ObservableList;
 import model.Board;
 import model.Card;
 import model.Column;
+import model.Direction;
+
+import java.util.Collections;
 
 public class ViewModel {
 
@@ -33,6 +36,18 @@ public class ViewModel {
             cards   = FXCollections.observableList(board.getCards());
         }
 
+    public void moveColumn(Column column, Direction direction){
+        board.moveColumn(column,direction);
+        Collections.sort(getColumns());
+    }
 
+
+    public void addColumn(Column column) {
+        columns.add(column);
+    }
+
+    public void remove(Column column) {
+        getColumns().remove(column);
+    }
 
     }
