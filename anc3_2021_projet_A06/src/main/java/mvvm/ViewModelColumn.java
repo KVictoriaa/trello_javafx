@@ -1,19 +1,30 @@
 package mvvm;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.Card;
 import model.Column;
+
+import java.util.Optional;
 
 
 public class ViewModelColumn {
     private final Column column;
     private final SimpleListProperty<Card> cards = new SimpleListProperty<>();
+    private final SimpleBooleanProperty disableColumnLeft = new SimpleBooleanProperty();
+    private final SimpleBooleanProperty disableColumnRight = new SimpleBooleanProperty();
     private ViewModelBoard viewModelBoard;
+    private SimpleStringProperty columnName = new SimpleStringProperty();
 
     public ViewModelColumn(Column column, ViewModelBoard viewModelBoard) {
         this.viewModelBoard = viewModelBoard;
         this.column = column;
+        disableColumnLeft.set(column.isFirstPosition());
+        disableColumnRight.set(column.isLastPosition());
         configData();
     }
 
@@ -24,7 +35,7 @@ public class ViewModelColumn {
     public void configData() {
 
         cards.setValue(column.getCardList());
-
+        columnName.setValue(column.getName());
     }
 
     public SimpleListProperty<Card> cardsProperty() {
