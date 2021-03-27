@@ -31,6 +31,37 @@ public class ViewModelColumn {
         return cards;
     }
 
+    public void moveLeft() {
+        column.getBoard().moveColumnLeft(column);
+    }
+
+    public void moveRight() {
+        column.getBoard().moveColumnRight(column);
+    }
+
+    public void addCard() {
+        Card card = new Card("card" + (column.getCardList().size() + 1), column.getCardList().size() + 1, column);
+        //column.addCardList(card);
+    }
+    public void removeColumn() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppression");
+        alert.setContentText("Voulez-vous vraiment supprimer cette colonne?");
+        Optional<ButtonType> res = alert.showAndWait();
+        if (res.isPresent() && res.get() == ButtonType.OK) {
+            //column.getBoard().removeColumns(column);
+        }
+    }
+    public SimpleBooleanProperty disableColumnLeftProperty() {
+        return disableColumnLeft;
+    }
+    public SimpleBooleanProperty disableColumnRightProperty() {
+        return disableColumnRight;
+    }
+    public SimpleStringProperty columnNameProperty() {
+        return columnName;
+    }
+
 
 }
 
