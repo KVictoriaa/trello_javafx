@@ -4,6 +4,7 @@ package view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import model.Card;
 import mvvm.ViewModelBoard;
@@ -23,9 +24,9 @@ public class ViewCard extends BorderPane {
     public ViewCard(Card card, ViewModelBoard viewModelBoard) {
         this.viewModelBoard = viewModelBoard;
         viewModelCard = new ViewModelCard(card,viewModelBoard);
-
+        editableLabel = new EditableLabel(viewModelCard.cardNameProperty(), null,null,viewModelCard);
         configCard();
-
+        configAction();
     }
 
     private void configCard(){
@@ -42,6 +43,26 @@ public class ViewCard extends BorderPane {
 
         this.setCenter(editableLabel);
         this.setStyle("-fx-background-color: #e1bee7;");
+    }
+    public void configAction(){
+        down.setOnMouseClicked(e -> {
+            viewModelCard.moveDown();
+        });
+        up.setOnMouseClicked(e ->{
+            viewModelCard.moveUp();
+        });
+        left.setOnMouseClicked(e ->{
+            viewModelCard.moveLeft();
+        });
+        right.setOnMouseClicked(e ->{
+            viewModelCard.moveRight();
+        });
+        this.setOnMouseClicked(e -> {
+            if(e.getButton() == MouseButton.SECONDARY){
+                viewModelCard.removeCard();
+            }
+        });
+
     }
 
 
