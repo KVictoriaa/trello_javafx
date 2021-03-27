@@ -27,6 +27,7 @@ public class ViewCard extends BorderPane {
         editableLabel = new EditableLabel(viewModelCard.cardNameProperty(), null,null,viewModelCard);
         configCard();
         configAction();
+        configData();
     }
 
     private void configCard(){
@@ -63,8 +64,14 @@ public class ViewCard extends BorderPane {
             }
         });
 
+
     }
 
-
+    public void configData(){
+        up.disableProperty().bind(viewModelCard.disableCardUpProperty());
+        down.disableProperty().bind(viewModelCard.disableCardDownProperty());
+        left.disableProperty().bind(viewModelCard.disableCardLeftProperty());
+        right.disableProperty().bind(viewModelCard.disableCardRightProperty());
+    }
 
 }
