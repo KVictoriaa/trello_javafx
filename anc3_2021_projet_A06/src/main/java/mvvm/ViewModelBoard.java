@@ -22,8 +22,16 @@ public class ViewModelBoard {
     public Board getBoard() {
         return board;
     }
-    public SimpleListProperty<Column> columnsProperty() {
+    public void addColumn(){
+        board.addColumns(new Column("column"+(board.getColumns().size() + 1),board.getColumns().size() +1,board));
+    }
+    public void setTitle(String title){
+        board.setName(title);
+    }
+
+        public SimpleListProperty<Column> columnsProperty() {
         return columns;
     }
+
 
 }
