@@ -53,6 +53,15 @@ public class ViewModelBoard {
         }
 
     }
+    public void redo(){
+
+        Processor.getInstance().redo();
+        refreshUndoRedoProperty();
+        if(Processor.getInstance().getSizeUndoCommand()){
+            nameActionRedo.setValue(nameAction.getValue());
+        }
+
+    }
     public Board getBoard() {
         return board;
     }
