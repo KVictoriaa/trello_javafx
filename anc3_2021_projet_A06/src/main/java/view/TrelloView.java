@@ -20,7 +20,9 @@ import mvvm.ViewModelBoard;
 public class TrelloView extends VBox {
     private ViewModelBoard viewModelBoard;
     private ViewBoard viewBoard;
+    private EditableLabel editableLabel;
     private Stage stage;
+    private HBox up = new HBox();
     private HBox down = new HBox();
     private Scene scene;
 
@@ -30,6 +32,7 @@ public class TrelloView extends VBox {
         this.viewModelBoard = viewModelBoard;
         this.stage = stage;
         scene = new Scene(this, 900,500);
+        editableLabel = new EditableLabel(viewModelBoard.boardNameProperty(),viewModelBoard,null,null);
         stage.setTitle("Trello");
         stage.setScene(scene);
         configTrello();
@@ -38,9 +41,9 @@ public class TrelloView extends VBox {
     }
     private void configTrello(){
 
-
+        up.getChildren().addAll(editableLabel);
         down.getChildren().addAll(viewBoard);
-        this.getChildren().addAll(down);
+        this.getChildren().addAll(up,down);
 
 
     }
