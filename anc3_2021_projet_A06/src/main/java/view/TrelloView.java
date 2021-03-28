@@ -41,11 +41,12 @@ public class TrelloView extends VBox {
         this.viewModelBoard = viewModelBoard;
         this.stage = stage;
         scene = new Scene(this, 900,500);
+        configAction();
         editableLabel = new EditableLabel(viewModelBoard.boardNameProperty(),viewModelBoard,null,null);
         stage.setTitle("Trello");
         stage.setScene(scene);
         configTrello();
-
+        configData();
 
     }
     private void configTrello(){
@@ -112,6 +113,13 @@ public class TrelloView extends VBox {
                 }
             }
         });
+    }
+    public void configData() {
+        annuler.disableProperty().bind(viewModelBoard.undoDisableProperty());
+        refaire.disableProperty().bind(viewModelBoard.redoDisableProperty());
+        annuler.textProperty().bind(Bindings.concat(new SimpleStringProperty("annuler        "), viewModelBoard.nameActionProperty(),new SimpleStringProperty("      CTRL+Z")));
+        refaire.textProperty().bind(Bindings.concat(new SimpleStringProperty("refaire        "), viewModelBoard.nameActionRedoProperty(),new SimpleStringProperty("      CTRL+Y")));
+
     }
 
 }
