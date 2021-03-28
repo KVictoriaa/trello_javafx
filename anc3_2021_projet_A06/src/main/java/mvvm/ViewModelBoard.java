@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import model.Board;
 import model.Column;
+import model.Processor;
 
 public class ViewModelBoard {
     private Board board;
@@ -24,6 +25,21 @@ public class ViewModelBoard {
 
     public void configData(){
         columns.setValue(board.getColumns());
+        refreshUndoRedoProperty();
+        boardName.setValue(board.getName());
+
+
+    }
+    public void refreshUndoRedoProperty(){
+        redoDisable.setValue(Processor.getInstance().getSizeUndoCommand());
+        undoDisable.setValue(Processor.getInstance().getSizeCommand());
+        if(Processor.getInstance().getLastCommand() != null){
+            nameAction.setValue(Processor.getInstance().getLastCommand().getNameAction());
+        }
+        if(Processor.getInstance().getLastUndoCommand() != null){
+            nameActionRedo.setValue(nameAction.getValue());
+
+        }
         boardName.setValue(board.getName());
 
 
