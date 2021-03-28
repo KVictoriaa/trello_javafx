@@ -63,7 +63,9 @@ public class ViewModelColumn {
             //column.getBoard().removeColumns(column);
         }
     }
-    public SimpleBooleanProperty disableColumnLeftProperty() {
+    public void setTitle(String title) {
+    }
+        public SimpleBooleanProperty disableColumnLeftProperty() {
         return disableColumnLeft;
     }
     public SimpleBooleanProperty disableColumnRightProperty() {
