@@ -55,9 +55,7 @@ public class Processor {
             removeLastCommand();
             undoCommands.add(command);
         }
-        else {
-            throw new RuntimeException("Aucune commande à annuler.");
-        }
+
     }
     public void redo(){
         if(!undoCommands.isEmpty()){
@@ -65,9 +63,7 @@ public class Processor {
             undoCommands.remove(undoCommands.size() - 1);
             this.execute(command);
         }
-        else{
-            throw new RuntimeException("Aucune commande à refaire.");
-        }
+
     }
     public boolean getSizeCommand(){
         return commands.isEmpty();
