@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import model.Board;
 import model.Column;
 import model.Processor;
+import model.board.SetTitleBoardCommand;
 
 public class ViewModelBoard {
     private Board board;
@@ -69,7 +70,8 @@ public class ViewModelBoard {
         board.addColumns(new Column("column"+(board.getColumns().size() + 1),board.getColumns().size() +1,board));
     }
     public void setTitle(String title){
-        board.setName(title);
+        Processor.getInstance().execute(new SetTitleBoardCommand(board ,title ,board.getName()));
+        refreshUndoRedoProperty();
     }
 
     public SimpleListProperty<Column> columnsProperty() {
