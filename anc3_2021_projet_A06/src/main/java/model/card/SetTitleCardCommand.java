@@ -2,9 +2,10 @@ package model.card;
 
 import model.Card;
 
-public class SetTitleCardCommand extends  CardCommand {
+public class SetTitleCardCommand extends CardCommand {
     private String name;
     private String content;
+
     public SetTitleCardCommand(Card card, String name, String content) {
         super(card);
         this.name = name;

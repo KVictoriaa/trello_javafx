@@ -51,7 +51,7 @@ public class ViewModelColumn {
 
     public void addCard() {
         Card card = new Card("card" + (column.getCardList().size() + 1), column.getCardList().size() + 1, column);
-        column.addCardList(card);
+
         AddCardCommand addCardCommand = new AddCardCommand(column,card);
         Processor.getInstance().execute(addCardCommand);
         viewModelBoard.refreshUndoRedoProperty();
