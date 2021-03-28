@@ -53,9 +53,7 @@ public class ViewModelCard {
 
     public void moveDown() {
 
-        System.out.println("cc");
-        boolean a = Processor.getInstance().getSizeCommand();
-        boolean e = Processor.getInstance().getSizeUndoCommand();
+
         MoveCardToDownCommmand moveCardToDownCommmand = new MoveCardToDownCommmand(card);
         Processor.getInstance().execute(moveCardToDownCommmand);
         viewModelBoard.refreshUndoRedoProperty();
