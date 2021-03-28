@@ -52,7 +52,7 @@ public class ViewModelColumn {
 
     public void addCard() {
         Card card = new Card("card" + (column.getCardList().size() + 1), column.getCardList().size() + 1, column);
-        //column.addCardList(card);
+        column.addCardList(card);
     }
     public void removeColumn() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -60,7 +60,7 @@ public class ViewModelColumn {
         alert.setContentText("Voulez-vous vraiment supprimer cette colonne?");
         Optional<ButtonType> res = alert.showAndWait();
         if (res.isPresent() && res.get() == ButtonType.OK) {
-            //column.getBoard().removeColumns(column);
+            column.getBoard().removeColumns(column);
         }
     }
     public void setTitle(String title) {
