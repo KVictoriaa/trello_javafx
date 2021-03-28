@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import javafx.scene.input.KeyCode;
 import mvvm.ViewModelBoard;
 import mvvm.ViewModelCard;
 import mvvm.ViewModelColumn;
@@ -28,6 +29,18 @@ public class EditableLabel extends Label {
        configAction();
 
     }
+    public void toLabel(){
+        this.setGraphic(null);
+
+        if(viewModelCard != null) {
+            viewModelCard.setTitle(textField.getText());
+        } else if(viewModelColumn != null) {
+            viewModelColumn.setTitle(textField.getText());
+        } else if(viewModelBoard != null) {
+            viewModelBoard.setTitle(textField.getText());
+        }
+        this.setText(textField.getText());
+    }
 
    public void configAction() {
         this.setOnMouseClicked(e-> {
@@ -38,6 +51,10 @@ public class EditableLabel extends Label {
                 textField.requestFocus();
             }
         });
-
-   }
+       textField.setOnKeyReleased(e->{
+           if(e.getCode().equals(KeyCode.ENTER)){
+               toLabel();
+           }
+       });
+    }
 }
