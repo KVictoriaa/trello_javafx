@@ -3,14 +3,12 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.Collections;
-
 
 public class Column {
+    Board board;
     private String name;
     private int position;
     private ObservableList<Card> cardList = FXCollections.observableArrayList();
-    Board board;
 
 
     public Column(String name, int position, Board board) {
@@ -38,34 +36,37 @@ public class Column {
     }
 
     public ObservableList<Card> getCardList() {
-        Collections.sort(cardList, new TriCardParPosition());
+        cardList.sort(new TriCardParPosition());
         return cardList;
     }
 
-    public void setCardList(ObservableList<Card> cardList) {
-        this.cardList = cardList;
-    }
-    public void addCardList(Card card){
+    //    public void setCardList(ObservableList<Card> cardList) {
+//        this.cardList = cardList;
+//    }
+    public void addCardList(Card card) {
         getCardList().add(card);
     }
-    public void removeCardList(Card card){
 
-        for (int k = card.getPosition() ; k < cardList.size(); ++k) {
-            getCardByPosition(k+1).setPosition(k);
+    public void removeCardList(Card card) {
+
+        for (int k = card.getPosition(); k < cardList.size(); ++k) {
+            getCardByPosition(k + 1).setPosition(k);
         }
         getCardList().remove(card);
 
     }
-    public Card getCard(int index){
-        return this.cardList.get(index);
-    }
-    public Card getCardByPosition(int position){
+
+    //    public Card getCard(int index){
+//        return this.cardList.get(index);
+//    }
+    public Card getCardByPosition(int position) {
         int i = 0;
-        while (i < cardList.size() && cardList.get(i).getPosition() != position){
+        while (i < cardList.size() && cardList.get(i).getPosition() != position) {
             ++i;
         }
         return cardList.get(i);
     }
+
     public Board getBoard() {
         return board;
     }
@@ -78,48 +79,54 @@ public class Column {
     public String toString() {
         return "" + position;
     }
-    public void moveCardUp(Card card){
 
-        int pos = card.getPosition() ;
-        if(pos > 1) {
+    public void moveCardUp(Card card) {
+
+        int pos = card.getPosition();
+        if (pos > 1) {
             Card other = getCardByPosition(pos - 1);
             other.setPosition(pos);
             card.setPosition(pos - 1);
-            Collections.sort(cardList, new TriCardParPosition());
+            cardList.sort(new TriCardParPosition());
         }
     }
-    public void moveCardDown(Card card){
+
+    public void moveCardDown(Card card) {
         int pos = card.getPosition();
-        if(pos < getCardList().size()) {
+        if (pos < getCardList().size()) {
             Card other = getCardByPosition(pos + 1);
             card.setPosition(pos + 1);
             other.setPosition(pos);
-            Collections.sort(cardList, new TriCardParPosition());
+            cardList.sort(new TriCardParPosition());
         }
     }
-    public void moveCardLeft(Card card){
-        if(getPosition() > 1) {
+
+    public void moveCardLeft(Card card) {
+        if (getPosition() > 1) {
             Column other = board.getColumnByPosition(getPosition() - 1);
             removeCardList(card);
-            card.setPosition(other.getCardList().size() +1);
+            card.setPosition(other.getCardList().size() + 1);
             card.setColumn(other);
             other.addCardList(card);
         }
     }
-    public void moveCardRight(Card card){
-        if(getPosition() < getBoard().getColumns().size()) {
+
+    public void moveCardRight(Card card) {
+        if (getPosition() < getBoard().getColumns().size()) {
             Column other = board.getColumnByPosition(getPosition() + 1);
 
             removeCardList(card);
-            card.setPosition(other.getCardList().size() +1);
+            card.setPosition(other.getCardList().size() + 1);
             card.setColumn(other);
             other.addCardList(card);
         }
     }
-    public boolean isFirstPosition(){
+
+    public boolean isFirstPosition() {
         return getPosition() == 1;
     }
-    public boolean isLastPosition(){
+
+    public boolean isLastPosition() {
         return board.getLastPosition() == getPosition();
     }
 

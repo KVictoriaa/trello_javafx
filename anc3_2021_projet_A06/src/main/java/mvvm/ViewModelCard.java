@@ -82,7 +82,7 @@ public class ViewModelCard {
             RemoveCardCommand removeCardCommand = new RemoveCardCommand(card);
             Processor.getInstance().execute(removeCardCommand);
         }
-        viewModelBoard.refreshUndoRedoProperty();
+      viewModelBoard.refreshUndoRedoProperty();
     }
 
     public void setTitle(String title) {

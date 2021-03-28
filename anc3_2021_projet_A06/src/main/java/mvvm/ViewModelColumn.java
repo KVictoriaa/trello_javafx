@@ -52,12 +52,13 @@ public class ViewModelColumn {
     public void addCard() {
         Card card = new Card("card" + (column.getCardList().size() + 1), column.getCardList().size() + 1, column);
 
-        AddCardCommand addCardCommand = new AddCardCommand(column,card);
+        AddCardCommand addCardCommand = new AddCardCommand(column, card);
         Processor.getInstance().execute(addCardCommand);
         viewModelBoard.refreshUndoRedoProperty();
 
     }
-    public void moveLeft(){
+
+    public void moveLeft() {
 
 
         MoveColumnToLeft moveColumnToLeft = new MoveColumnToLeft(column);
@@ -65,7 +66,8 @@ public class ViewModelColumn {
         viewModelBoard.refreshUndoRedoProperty();
 
     }
-    public void moveRight(){
+
+    public void moveRight() {
 
 
         MoveColumnToRight moveColumnToRight = new MoveColumnToRight(column);
@@ -74,6 +76,7 @@ public class ViewModelColumn {
 
 
     }
+
     public void removeColumn() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Suppression");
@@ -87,17 +90,20 @@ public class ViewModelColumn {
         viewModelBoard.refreshUndoRedoProperty();
 
     }
-    public void setTitle(String title){
-        Processor.getInstance().execute(new SetTitleColumnCommand(column ,title ,column.getName()));
+
+    public void setTitle(String title) {
+        Processor.getInstance().execute(new SetTitleColumnCommand(column, title, column.getName()));
         viewModelBoard.refreshUndoRedoProperty();
     }
 
-        public SimpleBooleanProperty disableColumnLeftProperty() {
+    public SimpleBooleanProperty disableColumnLeftProperty() {
         return disableColumnLeft;
     }
+
     public SimpleBooleanProperty disableColumnRightProperty() {
         return disableColumnRight;
     }
+
     public SimpleStringProperty columnNameProperty() {
         return columnName;
     }

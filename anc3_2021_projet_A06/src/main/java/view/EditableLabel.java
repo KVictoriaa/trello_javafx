@@ -45,7 +45,7 @@ public class EditableLabel extends Label {
    public void configAction() {
         this.setOnMouseClicked(e-> {
             if(e.getClickCount() == 2) {
-                textField.setText(backup = this.getText());
+               textField.setText(backup = this.getText());
                 this.setGraphic(textField);
                 this.setText("");
                 textField.requestFocus();

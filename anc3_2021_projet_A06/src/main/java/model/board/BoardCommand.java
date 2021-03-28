@@ -3,7 +3,7 @@ package model.board;
 import model.Board;
 import model.Command;
 
-public abstract class BoardCommand implements Command {
+abstract class BoardCommand implements Command {
 
     private final Board board;
 

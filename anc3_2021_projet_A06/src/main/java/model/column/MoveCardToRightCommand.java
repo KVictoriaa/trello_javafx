@@ -27,7 +27,7 @@ public class MoveCardToRightCommand extends CardCommand {
 
     @Override
     public String getNameAction() {
-        //Column column = getCard().getColumn().getBoard().getColumnByPosition(getCard().getColumn().getPosition()-1);
+
         return "mouvement de la carte " + getCard().getName() + " de la colonne "+(getCard().getColumn().getPosition()-1)+ " vers la colonne " +(getCard().getColumn().getPosition() );
     }
 
