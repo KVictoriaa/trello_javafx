@@ -22,6 +22,7 @@ public class TrelloView extends VBox {
     private ViewBoard viewBoard;
     private EditableLabel editableLabel;
     private Stage stage;
+    private HBox menu = new HBox();
     private HBox up = new HBox();
     private HBox down = new HBox();
     private Scene scene;
@@ -50,10 +51,14 @@ public class TrelloView extends VBox {
 
     }
     private void configTrello(){
+        fichier.getItems().addAll(colonne,quitter);
+        edition.getItems().addAll(annuler,refaire);
 
+        main_menu.getMenus().addAll(fichier,edition);
+        menu.getChildren().add(main_menu);
         up.getChildren().addAll(editableLabel);
         down.getChildren().addAll(viewBoard);
-        this.getChildren().addAll(up,down);
+        this.getChildren().addAll(menu,up,down);
 
 
     }
