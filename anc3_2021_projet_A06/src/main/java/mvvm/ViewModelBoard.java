@@ -53,7 +53,6 @@ public class ViewModelBoard {
         if(Processor.getInstance().getSizeCommand()){
             nameAction.setValue("");
         }
-
     }
     public void redo(){
 

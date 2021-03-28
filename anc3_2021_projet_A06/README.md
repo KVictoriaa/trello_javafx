@@ -7,6 +7,8 @@ Nous avons essayé d'avoir un projet qui lance et fonctionne (prendre le temps d
 
 ## Notes de livraison itération 2
 
+Bug constaté quand on renomme une carte: Il est impossible de revenir a l'état précèdent avec un "crtl-Z" du clavier, ni via le bouton edtion "annuler ou refaire"
+Bug constaté aussi quand on renomme un tableau , impossible de revenir en arriere avec un "crtl-Z" clavier. Mais via le bouton edtion-> refaire -> ça fonctionne.
 ## Notes de livraison itération 3
 
 ## Notes de livraison itération 4

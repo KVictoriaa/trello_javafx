@@ -1,0 +1,28 @@
+@startuml
+
+Actor user
+participant ViewCard
+participant ViewModelCard
+
+alt succes case
+activate ViewCard
+    user -> ViewCard
+    ViewCard -> ViewModelCard : moveDown
+
+    ViewModelCard -> Processor
+    alt succes case
+    Processor-> Command : canBeUndone(true)
+    Command -> Processor : this.command.add(command)
+    Processor ->  ViewCard :succes
+    else some kind of failure
+    Command-> Processor : canBeUndone(false)
+    Command-> Processor: this.commands.clear();
+    Processor -> ViewCard: failure
+
+    end
+     end
+deactivate ViewCard
+
+
+
+@enduml
