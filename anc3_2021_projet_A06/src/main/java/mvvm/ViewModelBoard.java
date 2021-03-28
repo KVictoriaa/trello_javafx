@@ -1,6 +1,7 @@
 package mvvm;
 
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
 import model.Board;
 import model.Column;
 
@@ -8,6 +9,8 @@ public class ViewModelBoard {
     private Board board;
 
     private final SimpleListProperty<Column> columns = new SimpleListProperty<>();
+    private SimpleStringProperty boardName = new SimpleStringProperty();
+
 
     public ViewModelBoard(Board board) {
         this.board = board;
@@ -16,6 +19,7 @@ public class ViewModelBoard {
 
     public void configData(){
         columns.setValue(board.getColumns());
+        boardName.setValue(board.getName());
 
 
     }
@@ -29,8 +33,11 @@ public class ViewModelBoard {
         board.setName(title);
     }
 
-        public SimpleListProperty<Column> columnsProperty() {
+    public SimpleListProperty<Column> columnsProperty() {
         return columns;
+    }
+    public SimpleStringProperty boardNameProperty() {
+        return boardName;
     }
 
 
