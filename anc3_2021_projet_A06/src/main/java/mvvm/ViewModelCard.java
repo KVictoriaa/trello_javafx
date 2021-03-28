@@ -80,7 +80,7 @@ public class ViewModelCard {
         alert.setContentText("Voulez-vous vraiment supprimer cette carte?");
         Optional<ButtonType> res = alert.showAndWait();
         if(res.isPresent() && res.get() == ButtonType.OK) {
-            //card.getColumn().removeCardList(card);
+
             RemoveCardCommand removeCardCommand = new RemoveCardCommand(card);
             Processor.getInstance().execute(removeCardCommand);
         }
