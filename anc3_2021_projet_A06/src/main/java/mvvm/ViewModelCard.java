@@ -5,6 +5,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Card;
+import model.Processor;
+import model.card.SetTitleCardCommand;
+import model.column.*;
 
 import java.util.Optional;
 
@@ -43,20 +46,32 @@ public class ViewModelCard {
 
     public void moveUp() {
 
-        card.getColumn().moveCardUp(card);
+        MoveCardToUpCommand moveCardToUpCommand = new MoveCardToUpCommand(card);
+        Processor.getInstance().execute(moveCardToUpCommand);
+        viewModelBoard.refreshUndoRedoProperty();
     }
 
     public void moveDown() {
 
-        card.getColumn().moveCardDown(card);
+        System.out.println("cc");
+        boolean a = Processor.getInstance().getSizeCommand();
+        boolean e = Processor.getInstance().getSizeUndoCommand();
+        MoveCardToDownCommmand moveCardToDownCommmand = new MoveCardToDownCommmand(card);
+        Processor.getInstance().execute(moveCardToDownCommmand);
+        viewModelBoard.refreshUndoRedoProperty();
+
     }
 
     public void moveLeft() {
-        card.getColumn().moveCardLeft(card);
+        MoveCardToLeftCommand moveCardToLeftCommand = new MoveCardToLeftCommand(card);
+        Processor.getInstance().execute(moveCardToLeftCommand);
+        viewModelBoard.refreshUndoRedoProperty();
     }
 
     public void moveRight() {
-        card.getColumn().moveCardRight(card);
+        MoveCardToRightCommand moveCardToRightCommand = new MoveCardToRightCommand(card);
+        Processor.getInstance().execute(moveCardToRightCommand);
+        viewModelBoard.refreshUndoRedoProperty();
     }
 
     public void removeCard() {
@@ -64,12 +79,18 @@ public class ViewModelCard {
         alert.setTitle("Suppression");
         alert.setContentText("Voulez-vous vraiment supprimer cette carte?");
         Optional<ButtonType> res = alert.showAndWait();
-        if (res.isPresent() && res.get() == ButtonType.OK) {
-            card.getColumn().removeCardList(card);
+        if(res.isPresent() && res.get() == ButtonType.OK) {
+            //card.getColumn().removeCardList(card);
+            RemoveCardCommand removeCardCommand = new RemoveCardCommand(card);
+            Processor.getInstance().execute(removeCardCommand);
         }
+        viewModelBoard.refreshUndoRedoProperty();
     }
 
     public void setTitle(String title) {
+        Processor.getInstance().execute(new SetTitleCardCommand(card ,title ,card.getName()));
+
+        viewModelBoard.refreshUndoRedoProperty();
     }
 
     public SimpleBooleanProperty disableCardDownProperty() {
