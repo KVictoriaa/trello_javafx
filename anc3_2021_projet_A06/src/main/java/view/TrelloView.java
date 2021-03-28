@@ -25,6 +25,15 @@ public class TrelloView extends VBox {
     private HBox up = new HBox();
     private HBox down = new HBox();
     private Scene scene;
+    MenuBar main_menu = new MenuBar();
+    Menu fichier = new Menu("Fichier");
+    Menu edition = new Menu("Edition");
+    MenuItem colonne = new MenuItem("Nouvelle colonne");
+    MenuItem quitter = new MenuItem("Quitter");
+    private MenuItem annuler = new MenuItem("Annuler");
+    private MenuItem refaire= new MenuItem("Refaire");
+    private final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z,KeyCombination.SHORTCUT_DOWN);
+    private final KeyCombination ctrlY = new KeyCodeCombination(KeyCode.Y,KeyCombination.SHORTCUT_DOWN);
 
 
     public TrelloView(ViewModelBoard viewModelBoard, Stage stage) {
@@ -46,6 +55,63 @@ public class TrelloView extends VBox {
         this.getChildren().addAll(up,down);
 
 
+    }
+    private void configAction(){
+
+        colonne.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                viewModelBoard.addColumn();
+            }
+        });
+        quitter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                stage.close();
+            }
+        });
+        annuler.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                viewModelBoard.undo();
+                editableLabel = new EditableLabel(viewModelBoard.boardNameProperty(), viewModelBoard,null,null);
+                up.getChildren().clear();
+                up.getChildren().addAll(editableLabel);
+
+            }
+        });
+        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if(ctrlZ.match(keyEvent)){
+                    viewModelBoard.undo();
+                }
+            }
+        });
+        this.setOnKeyReleased(e->{
+            if(e.getCode() == KeyCode.Z && e.isShortcutDown()){
+                viewModelBoard.undo();
+            }
+        });
+        refaire.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                viewModelBoard.redo();
+                editableLabel = new EditableLabel(viewModelBoard.boardNameProperty(), viewModelBoard,null,null);
+                up.getChildren().clear();
+                up.getChildren().addAll(editableLabel);
+            }
+        });
+        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if(ctrlY.match(keyEvent)){
+                    viewModelBoard.redo();
+                }
+            }
+        });
     }
 
 }
