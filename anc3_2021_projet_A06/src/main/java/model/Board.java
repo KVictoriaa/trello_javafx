@@ -23,7 +23,7 @@ public class Board {
     public Board(int id,String name) {
         this.id = id;
         this.name = name;
-
+        //initData();
         refreshData();
     }
     public String getName() {
