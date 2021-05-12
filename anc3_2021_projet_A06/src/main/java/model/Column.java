@@ -8,8 +8,13 @@ public class Column {
     Board board;
     private String name;
     private int position;
+    private int idColumn = 0;
+
     private ObservableList<Card> cardList = FXCollections.observableArrayList();
 
+    public Column () {
+
+    }
 
     public Column(String name, int position, Board board) {
         this.name = name;
@@ -17,6 +22,12 @@ public class Column {
         this.board = board;
     }
 
+    public Column(int idColumn,String name, int position,Board board) {
+        this.idColumn = idColumn;
+        this.name = name;
+        this.position = position;
+        this.board = board;
+    }
 
     public String getName() {
         return name;
@@ -37,14 +48,14 @@ public class Column {
 
     public ObservableList<Card> getCardList() {
         cardList.sort(new TriCardParPosition());
-        return cardList;
+        return FXCollections.unmodifiableObservableList(cardList);
     }
 
     //    public void setCardList(ObservableList<Card> cardList) {
 //        this.cardList = cardList;
 //    }
     public void addCardList(Card card) {
-        getCardList().add(card);
+        cardList.add(card);
     }
 
     public void removeCardList(Card card) {
@@ -52,7 +63,7 @@ public class Column {
         for (int k = card.getPosition(); k < cardList.size(); ++k) {
             getCardByPosition(k + 1).setPosition(k);
         }
-        getCardList().remove(card);
+        cardList.remove(card);
 
     }
 
@@ -74,7 +85,13 @@ public class Column {
     public void setBoard(Board board) {
         this.board = board;
     }
+    public int getIdColumn() {
+        return idColumn;
+    }
 
+    public void setIdColumn(int idColumn) {
+        this.idColumn = idColumn;
+    }
     @Override
     public String toString() {
         return "" + position;
