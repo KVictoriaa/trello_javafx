@@ -1,4 +1,4 @@
-package model.column;
+package mvvm.column;
 
 import model.Card;
 import model.Column;
