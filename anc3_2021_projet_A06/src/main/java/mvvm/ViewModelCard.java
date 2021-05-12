@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Card;
-import model.Processor;
 import mvvm.card.SetTitleCardCommand;
 import mvvm.column.*;
 
