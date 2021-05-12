@@ -3,10 +3,9 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Dao <T> {
+public abstract class Dao<T> {
     public static String url="jdbc:sqlite:trelloTest.db";
     public Connection connection;
 
