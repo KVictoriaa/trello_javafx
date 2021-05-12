@@ -44,7 +44,7 @@ public class CardDao extends Dao<Card>{
     public Card find() throws SQLException {
         return null;
     }
-
+@Override
     public ObservableList<Card> findAll(int columnId) throws SQLException {
         ObservableList<Card> cards = FXCollections.observableArrayList();
         String sql = "SELECT * FROM card where idColumn = " + columnId +" order by position;";

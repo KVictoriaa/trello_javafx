@@ -40,6 +40,7 @@ public class ColumnDao extends Dao<Column>{
         }
         return column;
     }
+    @Override
     public ObservableList<Column> findAlls() throws SQLException {
         ObservableList<Column> columns =  FXCollections.observableArrayList();
         String sql = "SELECT * FROM column" ;
