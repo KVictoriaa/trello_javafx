@@ -1,21 +1,23 @@
-package model.board;
+package mvvm.board;
 
 import model.Column;
 import model.column.ColumnCommand;
 
-public class MoveColumnToRight extends ColumnCommand {
-    public MoveColumnToRight(Column column) {
+public class AddColumnCommand extends ColumnCommand {
+
+    public AddColumnCommand(Column column) {
         super(column);
+
     }
 
     @Override
     public void execute() {
-        this.getColumn().getBoard().moveColumnRight(getColumn());
+        this.getColumn().getBoard().addColumns(getColumn());
     }
 
     @Override
     public void undo() {
-        this.getColumn().getBoard().moveColumnLeft(getColumn());
+        this.getColumn().getBoard().removeColumns(getColumn());
     }
 
     @Override
@@ -25,7 +27,6 @@ public class MoveColumnToRight extends ColumnCommand {
 
     @Override
     public String getNameAction() {
-        return "annule mouvement de colonne vers la droite";
-
+        return " ajout d'une colonne";
     }
 }

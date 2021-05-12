@@ -1,21 +1,21 @@
-package model.board;
+package mvvm.board;
 
 import model.Column;
 import model.column.ColumnCommand;
 
-public class RemoveColumnCommand extends ColumnCommand {
-    public RemoveColumnCommand(Column column) {
+public class MoveColumnToLeft extends ColumnCommand {
+    public MoveColumnToLeft(Column column) {
         super(column);
     }
 
     @Override
     public void execute() {
-        this.getColumn().getBoard().removeColumns(getColumn());
+        this.getColumn().getBoard().moveColumnLeft(getColumn());
     }
 
     @Override
     public void undo() {
-        this.getColumn().getBoard().addColumns(getColumn());
+        this.getColumn().getBoard().moveColumnRight(getColumn());
     }
 
     @Override
@@ -25,6 +25,6 @@ public class RemoveColumnCommand extends ColumnCommand {
 
     @Override
     public String getNameAction() {
-        return "suppression de colonne";
+        return " mouvement de la colonne vers la gauche";
     }
 }

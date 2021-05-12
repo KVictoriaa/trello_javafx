@@ -1,4 +1,4 @@
-package model.board;
+package mvvm.board;
 
 import model.Board;
 

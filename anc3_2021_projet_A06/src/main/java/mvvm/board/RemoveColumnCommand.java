@@ -1,23 +1,21 @@
-package model.board;
+package mvvm.board;
 
 import model.Column;
 import model.column.ColumnCommand;
 
-public class AddColumnCommand extends ColumnCommand {
-
-    public AddColumnCommand(Column column) {
+public class RemoveColumnCommand extends ColumnCommand {
+    public RemoveColumnCommand(Column column) {
         super(column);
-
     }
 
     @Override
     public void execute() {
-        this.getColumn().getBoard().addColumns(getColumn());
+        this.getColumn().getBoard().removeColumns(getColumn());
     }
 
     @Override
     public void undo() {
-        this.getColumn().getBoard().removeColumns(getColumn());
+        this.getColumn().getBoard().addColumns(getColumn());
     }
 
     @Override
@@ -27,6 +25,6 @@ public class AddColumnCommand extends ColumnCommand {
 
     @Override
     public String getNameAction() {
-        return " ajout d'une colonne";
+        return "suppression de colonne";
     }
 }
