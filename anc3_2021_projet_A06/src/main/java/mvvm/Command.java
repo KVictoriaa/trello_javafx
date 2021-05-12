@@ -5,5 +5,6 @@ public interface Command {
     void undo();
     boolean canBeUndone();
     String getNameAction();
+    String getRedoNameAction();
 }
 
