@@ -25,7 +25,12 @@ public class MoveCardToUpCommand extends CardCommand {
 
     @Override
     public String getNameAction() {
-        return "annuler mouvement de carte vers le haut";
+        return "mouvement de carte vers le haut";
 
+    }
+
+    @Override
+    public String getRedoNameAction() {
+        return "mouvement de carte  vers le haut";
     }
 }
