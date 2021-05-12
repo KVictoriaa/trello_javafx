@@ -25,7 +25,12 @@ public class MoveColumnToRight extends ColumnCommand {
 
     @Override
     public String getNameAction() {
-        return "annule mouvement de colonne vers la droite";
+        return "mouvement de colonne vers la droite";
 
+    }
+
+    @Override
+    public String getRedoNameAction() {
+        return "mouvement de colonne vers la droite";
     }
 }
