@@ -60,13 +60,13 @@ public class ViewModelCard {
     }
 
     public void moveLeft() {
-        MoveCardToLeftCommand moveCardToLeftCommand = new MoveCardToLeftCommand(card);
+        MoveCardToLeftCommand moveCardToLeftCommand = new MoveCardToLeftCommand(card,card.getPosition());
         Processor.getInstance().execute(moveCardToLeftCommand);
         viewModelBoard.refreshUndoRedoProperty();
     }
 
     public void moveRight() {
-        MoveCardToRightCommand moveCardToRightCommand = new MoveCardToRightCommand(card);
+        MoveCardToRightCommand moveCardToRightCommand = new MoveCardToRightCommand(card, card.getPosition());
         Processor.getInstance().execute(moveCardToRightCommand);
         viewModelBoard.refreshUndoRedoProperty();
     }
@@ -78,7 +78,7 @@ public class ViewModelCard {
         Optional<ButtonType> res = alert.showAndWait();
         if(res.isPresent() && res.get() == ButtonType.OK) {
 
-            RemoveCardCommand removeCardCommand = new RemoveCardCommand(card);
+            RemoveCardCommand removeCardCommand = new RemoveCardCommand(card,card.getPosition());
             Processor.getInstance().execute(removeCardCommand);
         }
       viewModelBoard.refreshUndoRedoProperty();
