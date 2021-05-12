@@ -74,11 +74,10 @@ public class Board {
             columnDao.update(c);
         }
         columns.remove(column);
-        columnDao.delete(column);
         column.getCardList().forEach(card ->{
             column.cardDao.delete(card);
         });
-
+        columnDao.delete(column);
 
     }
     public Column getColumn(int index){
