@@ -3,6 +3,7 @@ package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Board;
+import model.Trello;
 import mvvm.ViewModelBoard;
 import view.TrelloView;
 
@@ -11,7 +12,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Board board = new Board("Tableau");
+        Trello trelloTest = new Trello();
+        trelloTest.test();
+        Board board = new Board(1,"Tableau");
         ViewModelBoard viewModelBoard = new ViewModelBoard(board);
         new TrelloView(viewModelBoard,primaryStage);
         primaryStage.show();
