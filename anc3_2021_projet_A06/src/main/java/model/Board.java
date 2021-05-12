@@ -53,6 +53,17 @@ public class Board {
 
 
     }
+    public void addColumnsByPosition(Column column, int pos){
+        updatePositionOtherColumn(this,pos);
+        columns.add(column);
+        columnDao.create(column);
+        column.getCardList().forEach(card ->{
+            column.cardDao.create(card);
+        });
+        columnDao.update(column);
+        Collections.sort(columns,new TriColumnParPosition());
+    }
+
     public void removeColumns(Column column){
 
         for (int k = column.getPosition(); k < columns.size(); ++k) {
@@ -62,6 +73,9 @@ public class Board {
         }
         columns.remove(column);
         columnDao.delete(column);
+        column.getCardList().forEach(card ->{
+            column.cardDao.delete(card);
+        });
 
 
     }
@@ -130,5 +144,13 @@ public class Board {
     public int lastIdColumn(){
         return columnDao.findAll().getIdColumn();
     }
+    public void updatePositionOtherColumn(Board board, int pos) {
+        for (int i = pos; i <= board.getColumns().size(); i++) {
+            Column c = board.getColumns().get(i-1);
 
+            c.setPosition(i + 1);
+            columnDao.update(c);
+
+        }
+    }
 }
