@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import model.Board;
 import model.Column;
-import model.Processor;
 import mvvm.board.AddColumnCommand;
 import mvvm.board.SetTitleBoardCommand;
 
