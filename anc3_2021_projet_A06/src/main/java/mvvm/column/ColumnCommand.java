@@ -1,7 +1,7 @@
 package mvvm.column;
 
 import model.Column;
-import model.Command;
+import mvvm.Command;
 
 public abstract class ColumnCommand implements Command {
 
