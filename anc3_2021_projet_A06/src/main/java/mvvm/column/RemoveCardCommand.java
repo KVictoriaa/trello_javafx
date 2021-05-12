@@ -1,7 +1,7 @@
-package model.column;
+package mvvm.column;
 
 import model.Card;
-import model.card.CardCommand;
+import mvvm.card.CardCommand;
 
 public class RemoveCardCommand extends CardCommand {
     public RemoveCardCommand(Card card) {
