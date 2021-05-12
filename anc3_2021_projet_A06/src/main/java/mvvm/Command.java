@@ -1,4 +1,4 @@
-package model;
+package mvvm;
 
 public interface Command {
     void execute();
