@@ -8,6 +8,9 @@ import java.util.*;
 public class Board {
     private String name;
     private ObservableList<Column> columns = FXCollections.observableArrayList();
+    public Board() {
+
+    }
 
     public Board(String name) {
         this.name = name;
