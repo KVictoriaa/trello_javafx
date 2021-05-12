@@ -38,7 +38,7 @@ public class ViewModelBoard {
             nameAction.setValue(Processor.getInstance().getLastCommand().getNameAction());
         }
         if(Processor.getInstance().getLastUndoCommand() != null){
-            nameActionRedo.setValue(nameAction.getValue());
+            nameActionRedo.setValue(Processor.getInstance().getLastUndoCommand().getRedoNameAction());
 
         }
         boardName.setValue(board.getName());
@@ -48,7 +48,7 @@ public class ViewModelBoard {
     public void undo(){
 
         Processor.getInstance().undo();
-        refreshUndoRedoProperty();
+        configData();
         if(Processor.getInstance().getSizeCommand()){
             nameAction.setValue("");
         }
@@ -56,7 +56,7 @@ public class ViewModelBoard {
     public void redo(){
 
         Processor.getInstance().redo();
-        refreshUndoRedoProperty();
+        configData();
         if(Processor.getInstance().getSizeUndoCommand()){
             nameActionRedo.setValue(nameAction.getValue());
         }
@@ -66,7 +66,7 @@ public class ViewModelBoard {
         return board;
     }
     public void addColumn(){
-        Column column = new Column("column"+(board.getColumns().size() + 1),board.getColumns().size() +1,board);
+        Column column = new Column((board.lastIdColumn() + 1), "column"+(board.getColumns().size() + 1),board.getColumns().size() +1,board);
         AddColumnCommand addColumnCommand = new AddColumnCommand(column);
         Processor.getInstance().execute(addColumnCommand);
         refreshUndoRedoProperty();
