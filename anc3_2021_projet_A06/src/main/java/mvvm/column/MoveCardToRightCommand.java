@@ -5,8 +5,10 @@ import mvvm.card.CardCommand;
 
 public class MoveCardToRightCommand extends CardCommand {
 
-    public MoveCardToRightCommand(Card card) {
+    public int lastPosition;
+    public MoveCardToRightCommand(Card card, int lastPosition) {
         super(card);
+        this.lastPosition = lastPosition;
 
     }
 
@@ -17,7 +19,7 @@ public class MoveCardToRightCommand extends CardCommand {
 
     @Override
     public void undo() {
-        this.getCard().getColumn().moveCardLeft(getCard());
+        this.getCard().getColumn().moveCardLeftPosotion(getCard(), lastPosition);
     }
 
     @Override
@@ -29,6 +31,11 @@ public class MoveCardToRightCommand extends CardCommand {
     public String getNameAction() {
 
         return "mouvement de la carte " + getCard().getName() + " de la colonne "+(getCard().getColumn().getPosition()-1)+ " vers la colonne " +(getCard().getColumn().getPosition() );
+    }
+
+    @Override
+    public String getRedoNameAction() {
+        return "mouvement de la carte " + getCard().getName() + " de la colonne "+(getCard().getColumn().getPosition())+ " vers la colonne " +(getCard().getColumn().getPosition() +1 );
     }
 
 }
