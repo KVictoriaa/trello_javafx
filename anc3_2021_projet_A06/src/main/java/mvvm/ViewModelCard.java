@@ -6,8 +6,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Card;
 import model.Processor;
-import model.card.SetTitleCardCommand;
-import model.column.*;
+import mvvm.card.SetTitleCardCommand;
+import mvvm.column.*;
 
 import java.util.Optional;
 
