@@ -4,8 +4,11 @@ import model.Card;
 import mvvm.card.CardCommand;
 
 public class RemoveCardCommand extends CardCommand {
-    public RemoveCardCommand(Card card) {
+
+    public int lastPosition;
+    public RemoveCardCommand(Card card,int lastPosition) {
         super(card);
+        this.lastPosition = lastPosition;
     }
 
     @Override
@@ -15,7 +18,7 @@ public class RemoveCardCommand extends CardCommand {
 
     @Override
     public void undo() {
-        this.getCard().getColumn().addCardList(getCard());
+        this.getCard().getColumn().addCardListDaoByPosition(getCard(),lastPosition);
     }
 
     @Override
@@ -28,4 +31,8 @@ public class RemoveCardCommand extends CardCommand {
         return "suppression de carte";
 
     }
+
+    @Override
+    public String getRedoNameAction() {
+        return "suppression de carte";    }
 }
