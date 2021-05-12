@@ -29,4 +29,9 @@ public class AddColumnCommand extends ColumnCommand {
     public String getNameAction() {
         return " ajout d'une colonne";
     }
+
+    @Override
+    public String getRedoNameAction() {
+        return " ajout d'une colonne";
+    }
 }
