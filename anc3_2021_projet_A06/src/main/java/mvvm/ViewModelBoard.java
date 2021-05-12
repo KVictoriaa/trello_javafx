@@ -39,7 +39,6 @@ public class ViewModelBoard {
         }
         if(Processor.getInstance().getLastUndoCommand() != null){
             nameActionRedo.setValue(Processor.getInstance().getLastUndoCommand().getRedoNameAction());
-
         }
         boardName.setValue(board.getName());
 
