@@ -1,4 +1,4 @@
-package model;
+package mvvm;
 
 import java.util.ArrayList;
 import java.util.List;
