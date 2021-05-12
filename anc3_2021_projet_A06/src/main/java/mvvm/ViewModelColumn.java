@@ -8,7 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Card;
 import model.Column;
-import model.Processor;
 import mvvm.board.MoveColumnToLeft;
 import mvvm.board.MoveColumnToRight;
 import mvvm.board.RemoveColumnCommand;
