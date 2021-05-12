@@ -1,4 +1,4 @@
-package model.board;
+package mvvm.board;
 
 import model.Board;
 
@@ -30,6 +30,11 @@ public class SetTitleBoardCommand extends BoardCommand {
 
     @Override
     public String getNameAction() {
+        return "la modification du titre";
+    }
+
+    @Override
+    public String getRedoNameAction() {
         return "la modification du titre";
     }
 

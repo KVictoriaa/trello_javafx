@@ -11,6 +11,8 @@ Bug constaté quand on renomme une carte: Il est impossible de revenir a l'état
 Bug constaté aussi quand on renomme un tableau , impossible de revenir en arriere avec un "crtl-Z" clavier. Mais via le bouton edtion-> refaire -> ça fonctionne.
 ## Notes de livraison itération 3
 
+Il faut cliquer trois fois pour ajouter une carte et une colonne, j'ai changé car sa confondait avec le double-clique pour changer les noms
+ps: l'application s'ouvrirera peut-être que sur un tableau vide et nous devons créer nous même les données
 ## Notes de livraison itération 4
 
 

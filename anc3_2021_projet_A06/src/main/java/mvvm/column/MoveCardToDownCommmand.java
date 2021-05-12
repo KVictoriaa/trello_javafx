@@ -1,7 +1,7 @@
-package model.column;
+package mvvm.column;
 
 import model.Card;
-import model.card.CardCommand;
+import mvvm.card.CardCommand;
 
 public class MoveCardToDownCommmand extends CardCommand {
     public MoveCardToDownCommmand(Card card) {
@@ -26,5 +26,10 @@ public class MoveCardToDownCommmand extends CardCommand {
     @Override
     public String getNameAction() {
         return "mouvement de la carte " + getCard() + " vers le bas";
+    }
+
+    @Override
+    public String getRedoNameAction() {
+        return "mouvement de la carte  vers le bas";
     }
 }

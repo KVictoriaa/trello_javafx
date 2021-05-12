@@ -1,4 +1,4 @@
-package model.column;
+package mvvm.column;
 
 import model.Column;
 
@@ -30,6 +30,11 @@ public class SetTitleColumnCommand extends ColumnCommand {
 
     @Override
     public String getNameAction() {
-        return "la modification du titre";
+        return "la modification du titre de colonne";
+    }
+
+    @Override
+    public String getRedoNameAction() {
+        return "la modification du titre de colonne";
     }
 }

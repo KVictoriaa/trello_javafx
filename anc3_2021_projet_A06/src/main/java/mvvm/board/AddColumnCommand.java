@@ -1,7 +1,7 @@
-package model.board;
+package mvvm.board;
 
 import model.Column;
-import model.column.ColumnCommand;
+import mvvm.column.ColumnCommand;
 
 public class AddColumnCommand extends ColumnCommand {
 
@@ -27,6 +27,11 @@ public class AddColumnCommand extends ColumnCommand {
 
     @Override
     public String getNameAction() {
+        return " ajout d'une colonne";
+    }
+
+    @Override
+    public String getRedoNameAction() {
         return " ajout d'une colonne";
     }
 }

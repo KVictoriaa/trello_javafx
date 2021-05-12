@@ -1,7 +1,7 @@
-package model.board;
+package mvvm.board;
 
 import model.Board;
-import model.Command;
+import mvvm.Command;
 
 abstract class BoardCommand implements Command {
 

@@ -8,12 +8,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Card;
 import model.Column;
-import model.Processor;
-import model.board.MoveColumnToLeft;
-import model.board.MoveColumnToRight;
-import model.board.RemoveColumnCommand;
-import model.column.AddCardCommand;
-import model.column.SetTitleColumnCommand;
+import mvvm.board.MoveColumnToLeft;
+import mvvm.board.MoveColumnToRight;
+import mvvm.board.RemoveColumnCommand;
+import mvvm.column.AddCardCommand;
+import mvvm.column.SetTitleColumnCommand;
 
 import java.util.Optional;
 
@@ -50,7 +49,7 @@ public class ViewModelColumn {
 
 
     public void addCard() {
-        Card card = new Card("card" + (column.getCardList().size() + 1), column.getCardList().size() + 1, column);
+        Card card = new Card((column.lastIdCard()+1),"card"+(column.getCardList().size() + 1),column.getCardList().size() +1,column);
 
         AddCardCommand addCardCommand = new AddCardCommand(column, card);
         Processor.getInstance().execute(addCardCommand);
@@ -83,8 +82,8 @@ public class ViewModelColumn {
         alert.setContentText("Voulez-vous vraiment supprimer cette colonne?");
         Optional<ButtonType> res = alert.showAndWait();
         if (res.isPresent() && res.get() == ButtonType.OK) {
-            column.getBoard().removeColumns(column);
-            RemoveColumnCommand removeColumnCommand = new RemoveColumnCommand(column);
+            //column.getBoard().removeColumns(column);
+            RemoveColumnCommand removeColumnCommand = new RemoveColumnCommand(column,column.getPosition());
             Processor.getInstance().execute(removeColumnCommand);
         }
         viewModelBoard.refreshUndoRedoProperty();
@@ -92,8 +91,9 @@ public class ViewModelColumn {
     }
 
     public void setTitle(String title) {
+        columnName.setValue(title);
         Processor.getInstance().execute(new SetTitleColumnCommand(column, title, column.getName()));
-        viewModelBoard.refreshUndoRedoProperty();
+        viewModelBoard.configData();
     }
 
     public SimpleBooleanProperty disableColumnLeftProperty() {

@@ -1,11 +1,14 @@
-package model.board;
+package mvvm.board;
 
 import model.Column;
-import model.column.ColumnCommand;
+import mvvm.column.ColumnCommand;
 
 public class RemoveColumnCommand extends ColumnCommand {
-    public RemoveColumnCommand(Column column) {
+    public int lastPosition;
+    public RemoveColumnCommand(Column column, int lastPosition) {
+
         super(column);
+        this.lastPosition = lastPosition;
     }
 
     @Override
@@ -15,7 +18,7 @@ public class RemoveColumnCommand extends ColumnCommand {
 
     @Override
     public void undo() {
-        this.getColumn().getBoard().addColumns(getColumn());
+        this.getColumn().getBoard().addColumnsByPosition(getColumn(),lastPosition);
     }
 
     @Override
@@ -25,6 +28,11 @@ public class RemoveColumnCommand extends ColumnCommand {
 
     @Override
     public String getNameAction() {
+        return "suppression de colonne";
+    }
+
+    @Override
+    public String getRedoNameAction() {
         return "suppression de colonne";
     }
 }

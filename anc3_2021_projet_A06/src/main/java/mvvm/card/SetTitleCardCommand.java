@@ -1,4 +1,4 @@
-package model.card;
+package mvvm.card;
 
 import model.Card;
 
@@ -32,6 +32,10 @@ public class SetTitleCardCommand extends CardCommand {
 
     @Override
     public String getNameAction() {
-        return "la modification du titre";
+        return "la modification du titre de card";
     }
+
+    @Override
+    public String getRedoNameAction() {
+        return "la modification du titre de card";    }
 }

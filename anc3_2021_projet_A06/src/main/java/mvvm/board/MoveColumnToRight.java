@@ -1,7 +1,7 @@
-package model.board;
+package mvvm.board;
 
 import model.Column;
-import model.column.ColumnCommand;
+import mvvm.column.ColumnCommand;
 
 public class MoveColumnToRight extends ColumnCommand {
     public MoveColumnToRight(Column column) {
@@ -25,7 +25,12 @@ public class MoveColumnToRight extends ColumnCommand {
 
     @Override
     public String getNameAction() {
-        return "annule mouvement de colonne vers la droite";
+        return "mouvement de colonne vers la droite";
 
+    }
+
+    @Override
+    public String getRedoNameAction() {
+        return "mouvement de colonne vers la droite";
     }
 }

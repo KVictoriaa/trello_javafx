@@ -1,7 +1,7 @@
-package model.card;
+package mvvm.card;
 
 import model.Card;
-import model.Command;
+import mvvm.Command;
 
 public abstract class CardCommand implements Command {
     private final Card card;
