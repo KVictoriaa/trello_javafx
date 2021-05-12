@@ -12,12 +12,12 @@ public class AddCardCommand extends ColumnCommand {
 
     @Override
     public void execute() {
-        this.getColumn().addCardList(card);
+        this.getColumn().addCardListDao(card);
     }
 
     @Override
     public void undo() {
-        this.getColumn().removeCardList(card);
+        this.getColumn().removeCardListDao(card);
     }
 
     @Override
@@ -25,6 +25,10 @@ public class AddCardCommand extends ColumnCommand {
         return true;
     }
     public String getNameAction(){
+        return "ajout d'une carte";
+    }
+    @Override
+    public String getRedoNameAction() {
         return "ajout d'une carte";
     }
 }
