@@ -27,4 +27,9 @@ public class MoveColumnToLeft extends ColumnCommand {
     public String getNameAction() {
         return " mouvement de la colonne vers la gauche";
     }
+
+    @Override
+    public String getRedoNameAction() {
+        return " mouvement de la colonne vers la gauche";
+    }
 }
