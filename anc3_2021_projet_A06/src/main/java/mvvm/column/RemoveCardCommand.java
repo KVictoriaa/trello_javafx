@@ -13,7 +13,7 @@ public class RemoveCardCommand extends CardCommand {
 
     @Override
     public void execute() {
-        this.getCard().getColumn().removeCardList(getCard());
+        this.getCard().getColumn().removeCardListDao(getCard());
     }
 
     @Override
