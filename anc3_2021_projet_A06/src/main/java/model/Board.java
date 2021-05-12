@@ -9,6 +9,8 @@ public class Board {
     private String name;
     private int id =0;
     private ObservableList<Column> columns = FXCollections.observableArrayList();
+    public ColumnDao columnDao = new ColumnDao();
+
     public Board() {
 
     }
@@ -44,14 +46,23 @@ public class Board {
         return FXCollections.unmodifiableObservableList(columns);
     }
     public void addColumns(Column column){
+
         columns.add(column);
+        columnDao.create(column);
+        Collections.sort(this.columns,new TriColumnParPosition());
+
+
     }
     public void removeColumns(Column column){
 
         for (int k = column.getPosition(); k < columns.size(); ++k) {
-            getColumnByPosition(k+1).setPosition(k);
+            Column c = getColumnByPosition(k+1);
+            c.setPosition(k);
+            columnDao.update(c);
         }
         columns.remove(column);
+        columnDao.delete(column);
+
 
     }
     public Column getColumn(int index){
@@ -73,7 +84,9 @@ public class Board {
         if(pos > 1) {
             Column other = getColumnByPosition(pos - 1);
             column.setPosition(pos - 1);
+            columnDao.update(column);
             other.setPosition(pos);
+            columnDao.update(other);
             Collections.sort(columns, new TriColumnParPosition());
         }
     }
@@ -83,7 +96,9 @@ public class Board {
         if(pos < getColumns().size()) {
             Column other = getColumnByPosition(pos + 1);
             column.setPosition(pos + 1);
+            columnDao.update(column);
             other.setPosition(pos);
+            columnDao.update(other);
             Collections.sort(columns, new TriColumnParPosition());
         }
     }
@@ -112,6 +127,8 @@ public class Board {
 
 
     }
-
+    public int lastIdColumn(){
+        return columnDao.findAll().getIdColumn();
+    }
 
 }
