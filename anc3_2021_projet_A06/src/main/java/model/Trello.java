@@ -80,7 +80,7 @@ public class Trello {
               }
            else {
                Connection connection = DriverManager.getConnection(url);
-               //clearDB(connection);
+               clearDB(connection);
                configDB(connection);
                createTables(connection);
                seedboard(connection);
