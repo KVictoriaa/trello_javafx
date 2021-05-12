@@ -1,4 +1,4 @@
-package model.column;
+package mvvm.column;
 
 import model.Column;
 import model.Command;
