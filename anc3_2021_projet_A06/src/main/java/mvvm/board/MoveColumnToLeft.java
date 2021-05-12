@@ -1,7 +1,7 @@
 package mvvm.board;
 
 import model.Column;
-import model.column.ColumnCommand;
+import mvvm.column.ColumnCommand;
 
 public class MoveColumnToLeft extends ColumnCommand {
     public MoveColumnToLeft(Column column) {
