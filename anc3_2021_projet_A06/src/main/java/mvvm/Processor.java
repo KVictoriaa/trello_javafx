@@ -34,15 +34,13 @@ public class Processor {
         }
     }
     public boolean canBeUndone(){
-        if(getLastCommand() == null){
-            return false;
-        }
-        return getLastCommand().canBeUndone();
+        return getLastCommand () == null ? false : getLastCommand ().canBeUndone ();
     }
     public void execute(Command command){
         command.execute();
         if(command.canBeUndone()){
             this.commands.add(command);
+            this.undoCommands.clear();
         }
         else {
             this.commands.clear();
@@ -55,13 +53,24 @@ public class Processor {
             removeLastCommand();
             undoCommands.add(command);
         }
+        else {
+            throw new RuntimeException("Aucune commande à annuler.");
+        }
 
     }
     public void redo(){
         if(!undoCommands.isEmpty()){
             Command command = undoCommands.get(undoCommands.size() - 1);
             undoCommands.remove(undoCommands.size() - 1);
-            this.execute(command);
+            command.execute();
+            if(command.canBeUndone()){
+                this.commands.add(command);
+            }else{
+                commands.clear();
+            }
+        }
+        else{
+            throw new RuntimeException("Aucune commande à refaire.");
         }
 
     }
