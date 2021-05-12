@@ -26,7 +26,10 @@ public class Card {
     }
 
     public void setName(String name) {
+
         this.name = name;
+        column.cardDao.update(this);
+
     }
 
 
