@@ -103,27 +103,27 @@ public class Board {
         }
     }
     public void initData(){
-        Column column1 = new Column("column1",1,this);
-        Column column2 = new Column("column2",2,this);
-        Column column3 = new Column("column3",3,this);
+        Column column1 = new Column(1,"column1",1,this);
+        Column column2 = new Column(2,"column2",2,this);
+        Column column3 = new Column(3,"column3",3,this);
 
-        Card card1 = new Card("card1", 1,column1);
-        Card card2 = new Card("card2", 1,column2);
-        Card card3 = new Card("card3", 2,column2);
-        Card card4 = new Card("card4", 1,column3);
-        Card card5 = new Card("card5", 2,column3);
-        Card card6 = new Card("card6", 3,column3);
+        Card card1 = new Card(1,"card1", 1,column1);
+        Card card2 = new Card(2,"card2", 1,column2);
+        Card card3 = new Card(3,"card3", 2,column2);
+        Card card4 = new Card(4,"card4", 1,column3);
+        Card card5 = new Card(5,"card5", 2,column3);
+        Card card6 = new Card(6,"card6", 3,column3);
 
         addColumns(column1);
         addColumns(column2);
         addColumns(column3);
 
-        column1.addCardList(card1);
-        column2.addCardList(card2);
-        column2.addCardList(card3);
-        column3.addCardList(card4);
-        column3.addCardList(card5);
-        column3.addCardList(card6);
+        column1.addCardListDao(card1);
+        column2.addCardListDao(card2);
+        column2.addCardListDao(card3);
+        column3.addCardListDao(card4);
+        column3.addCardListDao(card5);
+        column3.addCardListDao(card6);
 
 
     }
