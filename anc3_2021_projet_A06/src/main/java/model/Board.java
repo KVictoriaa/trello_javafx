@@ -7,12 +7,18 @@ import java.util.*;
 
 public class Board {
     private String name;
+    private int id =0;
     private ObservableList<Column> columns = FXCollections.observableArrayList();
     public Board() {
 
     }
 
     public Board(String name) {
+        this.name = name;
+        initData();
+    }
+    public Board(int id,String name) {
+        this.id = id;
         this.name = name;
         initData();
     }
