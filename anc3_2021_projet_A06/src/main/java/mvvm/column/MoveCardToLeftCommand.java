@@ -1,8 +1,8 @@
-package model.column;
+package mvvm.column;
 
 import model.Card;
 import model.Column;
-import model.card.CardCommand;
+import mvvm.card.CardCommand;
 
 public class MoveCardToLeftCommand extends CardCommand {
 
