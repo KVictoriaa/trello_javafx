@@ -1,7 +1,7 @@
-package model.column;
+package mvvm.column;
 
 import model.Card;
-import model.card.CardCommand;
+import mvvm.card.CardCommand;
 
 public class MoveCardToUpCommand extends CardCommand {
     public MoveCardToUpCommand(Card card) {
