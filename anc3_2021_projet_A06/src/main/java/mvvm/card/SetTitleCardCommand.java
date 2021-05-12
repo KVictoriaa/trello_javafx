@@ -1,4 +1,4 @@
-package model.card;
+package mvvm.card;
 
 import model.Card;
 
