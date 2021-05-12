@@ -31,20 +31,27 @@ public class Board {
         this.name = name;
 
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public ObservableList<Column> getColumns() {
         Collections.sort(columns, new TriColumnParPosition());
-        return columns;
+        return FXCollections.unmodifiableObservableList(columns);
     }
     public void addColumns(Column column){
-        getColumns().add(column);
+        columns.add(column);
     }
     public void removeColumns(Column column){
 
         for (int k = column.getPosition(); k < columns.size(); ++k) {
             getColumnByPosition(k+1).setPosition(k);
         }
-        getColumns().remove(column);
+        columns.remove(column);
 
     }
     public Column getColumn(int index){
