@@ -27,4 +27,9 @@ public class MoveCardToDownCommmand extends CardCommand {
     public String getNameAction() {
         return "mouvement de la carte " + getCard() + " vers le bas";
     }
+
+    @Override
+    public String getRedoNameAction() {
+        return "mouvement de la carte  vers le bas";
+    }
 }
