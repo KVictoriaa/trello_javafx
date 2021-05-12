@@ -82,8 +82,8 @@ public class ViewModelColumn {
         alert.setContentText("Voulez-vous vraiment supprimer cette colonne?");
         Optional<ButtonType> res = alert.showAndWait();
         if (res.isPresent() && res.get() == ButtonType.OK) {
-            column.getBoard().removeColumns(column);
-            RemoveColumnCommand removeColumnCommand = new RemoveColumnCommand(column);
+            //column.getBoard().removeColumns(column);
+            RemoveColumnCommand removeColumnCommand = new RemoveColumnCommand(column,column.getPosition());
             Processor.getInstance().execute(removeColumnCommand);
         }
         viewModelBoard.refreshUndoRedoProperty();
