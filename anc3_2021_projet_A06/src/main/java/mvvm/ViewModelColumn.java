@@ -49,7 +49,7 @@ public class ViewModelColumn {
 
 
     public void addCard() {
-        Card card = new Card("card" + (column.getCardList().size() + 1), column.getCardList().size() + 1, column);
+        Card card = new Card((column.lastIdCard()+1),"card"+(column.getCardList().size() + 1),column.getCardList().size() +1,column);
 
         AddCardCommand addCardCommand = new AddCardCommand(column, card);
         Processor.getInstance().execute(addCardCommand);
@@ -91,8 +91,9 @@ public class ViewModelColumn {
     }
 
     public void setTitle(String title) {
+        columnName.setValue(title);
         Processor.getInstance().execute(new SetTitleColumnCommand(column, title, column.getName()));
-        viewModelBoard.refreshUndoRedoProperty();
+        viewModelBoard.configData();
     }
 
     public SimpleBooleanProperty disableColumnLeftProperty() {
