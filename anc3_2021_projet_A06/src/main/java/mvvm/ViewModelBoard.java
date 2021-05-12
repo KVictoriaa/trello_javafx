@@ -6,8 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 import model.Board;
 import model.Column;
 import model.Processor;
-import model.board.AddColumnCommand;
-import model.board.SetTitleBoardCommand;
+import mvvm.board.AddColumnCommand;
+import mvvm.board.SetTitleBoardCommand;
 
 public class ViewModelBoard {
     private Board board;
