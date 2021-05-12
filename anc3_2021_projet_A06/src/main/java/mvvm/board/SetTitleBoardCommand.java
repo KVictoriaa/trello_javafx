@@ -33,5 +33,10 @@ public class SetTitleBoardCommand extends BoardCommand {
         return "la modification du titre";
     }
 
+    @Override
+    public String getRedoNameAction() {
+        return "la modification du titre";
+    }
+
 
 }
