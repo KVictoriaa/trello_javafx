@@ -3,13 +3,15 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Collections;
+
 
 public class Column {
     Board board;
     private String name;
     private int position;
     private int idColumn = 0;
-
+    CardDao cardDao = new CardDao();
     private ObservableList<Card> cardList = FXCollections.observableArrayList();
 
     public Column () {
@@ -34,7 +36,10 @@ public class Column {
     }
 
     public void setName(String name) {
+
         this.name = name;
+        board.columnDao.update(this);
+
     }
 
 
@@ -57,11 +62,17 @@ public class Column {
     public void addCardList(Card card) {
         cardList.add(card);
     }
+    public void addCardListDao(Card card){
+        cardList.add(card);
+        cardDao.create(card);
+    }
 
     public void removeCardList(Card card) {
 
-        for (int k = card.getPosition(); k < cardList.size(); ++k) {
-            getCardByPosition(k + 1).setPosition(k);
+        for (int k = card.getPosition() ; k < cardList.size(); ++k) {
+            Card c =getCardByPosition(k+1);
+            c.setPosition(k);
+            cardDao.update(c);
         }
         cardList.remove(card);
 
@@ -103,7 +114,9 @@ public class Column {
         if (pos > 1) {
             Card other = getCardByPosition(pos - 1);
             other.setPosition(pos);
+            cardDao.update(other);
             card.setPosition(pos - 1);
+            cardDao.update(card);
             cardList.sort(new TriCardParPosition());
         }
     }
@@ -113,7 +126,9 @@ public class Column {
         if (pos < getCardList().size()) {
             Card other = getCardByPosition(pos + 1);
             card.setPosition(pos + 1);
+            cardDao.update(card);
             other.setPosition(pos);
+            cardDao.update(other);
             cardList.sort(new TriCardParPosition());
         }
     }
@@ -125,17 +140,20 @@ public class Column {
             card.setPosition(other.getCardList().size() + 1);
             card.setColumn(other);
             other.addCardList(card);
+            cardDao.update(card);
+            Collections.sort(cardList, new TriCardParPosition());
         }
     }
 
     public void moveCardRight(Card card) {
         if (getPosition() < getBoard().getColumns().size()) {
             Column other = board.getColumnByPosition(getPosition() + 1);
-
             removeCardList(card);
             card.setPosition(other.getCardList().size() + 1);
             card.setColumn(other);
             other.addCardList(card);
+            cardDao.update(card);
+            Collections.sort(cardList, new TriCardParPosition());
         }
     }
 
@@ -149,6 +167,11 @@ public class Column {
 
     public int getLastPosition() {
         return cardList.size();
+    }
+    public int lastIdCard(){
+
+        return cardDao.findAll().getId();
+
     }
 
 }
