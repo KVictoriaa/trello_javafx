@@ -9,11 +9,11 @@ import javafx.scene.control.ButtonType;
 import model.Card;
 import model.Column;
 import model.Processor;
-import model.board.MoveColumnToLeft;
-import model.board.MoveColumnToRight;
-import model.board.RemoveColumnCommand;
-import model.column.AddCardCommand;
-import model.column.SetTitleColumnCommand;
+import mvvm.board.MoveColumnToLeft;
+import mvvm.board.MoveColumnToRight;
+import mvvm.board.RemoveColumnCommand;
+import mvvm.column.AddCardCommand;
+import mvvm.column.SetTitleColumnCommand;
 
 import java.util.Optional;
 
