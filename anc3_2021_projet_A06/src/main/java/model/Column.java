@@ -217,6 +217,7 @@ public class Column {
     public boolean isLastPosition() {
         return board.getLastPosition() == getPosition();
     }
+    //public boolean isSelecte() {return board.getColumns().isEmpty();}
 
     public int getLastPosition() {
         return cardList.size();

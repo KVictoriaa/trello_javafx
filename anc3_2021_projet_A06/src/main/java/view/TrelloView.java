@@ -3,6 +3,7 @@ package view;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -13,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mvvm.ViewModelBoard;
+import mvvm.ViewModelColumn;
 
 public class TrelloView extends VBox {
     private final KeyCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.SHORTCUT_DOWN);
@@ -23,7 +25,7 @@ public class TrelloView extends VBox {
     Menu edition = new Menu("Edition");
     MenuItem colonne = new MenuItem("Nouvelle colonne");
     MenuItem quitter = new MenuItem("Quitter");
-
+    private ViewModelColumn viewModelColumn;
     private ViewModelBoard viewModelBoard;
     private ViewBoard viewBoard;
     private EditableLabel editableLabel;
@@ -32,7 +34,7 @@ public class TrelloView extends VBox {
     private HBox up = new HBox();
     private HBox down = new HBox();
     private Scene scene;
-
+    private Button button = new Button("Delete selected");
     private MenuItem annuler = new MenuItem("Annuler");
     private MenuItem refaire = new MenuItem("Refaire");
 
@@ -42,6 +44,7 @@ public class TrelloView extends VBox {
         this.viewModelBoard = viewModelBoard;
         this.stage = stage;
         scene = new Scene(this, 900, 500);
+        this.setPrefWidth(50);
         configAction();
         editableLabel = new EditableLabel(viewModelBoard.boardNameProperty(), viewModelBoard, null, null);
         stage.setTitle("Trello");
@@ -105,7 +108,16 @@ public class TrelloView extends VBox {
         refaire.disableProperty().bind(viewModelBoard.redoDisableProperty());
         annuler.textProperty().bind(Bindings.concat(new SimpleStringProperty("Annuler"+"   "), viewModelBoard.nameActionProperty(), new SimpleStringProperty("      CTRL+Z")));
         refaire.textProperty().bind(Bindings.concat(new SimpleStringProperty("Refaire"+"   "), viewModelBoard.nameActionRedoProperty(), new SimpleStringProperty("      CTRL+Y")));
-
+        button.disableProperty().bind(viewModelBoard.disableButtonProperty());
     }
-
+/*je
+vais afficher le button,
+faire une methode remove dans le model board avec comme paramètre une colonne
+dans le modele board créer une nouvelle liste,
+dans la méthode remove lorsqu'une colonne est cheched on l'ajoute a la liste et je fais un remove columnlist,
+dans le viewmodelboard creer une nouvelle liste de column;
+je créer une méthode pour recupérer la column selectionné , et appeler le remove créer;
+dans la vue je met sur le button comme action d'appeler la nouvelle méthode créer dans le viewmodelboard.
+en recupérant la ou les columns sélection
+je créer une nouvelle classe dans le mvvm ou j'appel le remove créer en methode execute et une autre méthode add sur le undo. */
 }

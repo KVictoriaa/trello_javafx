@@ -17,6 +17,9 @@ public class ViewModelBoard {
     private SimpleStringProperty nameAction = new SimpleStringProperty(" ");
     private SimpleStringProperty nameActionRedo = new SimpleStringProperty(" ");
     private SimpleStringProperty boardName = new SimpleStringProperty();
+    private ViewModelColumn viewModelColumn;
+    private final SimpleBooleanProperty disableButton = new SimpleBooleanProperty();
+
 
 
     public ViewModelBoard(Board board) {
@@ -28,7 +31,7 @@ public class ViewModelBoard {
         columns.setValue(board.getColumns());
         refreshUndoRedoProperty();
         boardName.setValue(board.getName());
-
+        disableButton.set(board.isSelecte());
 
     }
     public void refreshUndoRedoProperty(){
@@ -92,6 +95,9 @@ public class ViewModelBoard {
     }
     public SimpleStringProperty boardNameProperty() {
         return boardName;
+    }
+    public SimpleBooleanProperty disableButtonProperty() {
+        return disableButton;
     }
 
 

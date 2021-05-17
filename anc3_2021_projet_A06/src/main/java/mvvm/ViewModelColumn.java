@@ -22,6 +22,9 @@ public class ViewModelColumn {
     private final SimpleListProperty<Card> cards = new SimpleListProperty<>();
     private final SimpleBooleanProperty disableColumnLeft = new SimpleBooleanProperty();
     private final SimpleBooleanProperty disableColumnRight = new SimpleBooleanProperty();
+    private final SimpleBooleanProperty disableSelected = new SimpleBooleanProperty();
+    private final SimpleBooleanProperty disableButton = new SimpleBooleanProperty();
+
     private ViewModelBoard viewModelBoard;
     private SimpleStringProperty columnName = new SimpleStringProperty();
 
@@ -30,6 +33,7 @@ public class ViewModelColumn {
         this.column = column;
         disableColumnLeft.set(column.isFirstPosition());
         disableColumnRight.set(column.isLastPosition());
+        //disableButton.set(column.isSelecte());
         configData();
     }
 
@@ -89,6 +93,9 @@ public class ViewModelColumn {
         viewModelBoard.refreshUndoRedoProperty();
 
     }
+    public void removeSelecte(Column column) {
+        column.getBoard().removeColumns(column);
+    }
 
     public void setTitle(String title) {
         columnName.setValue(title);
@@ -106,6 +113,12 @@ public class ViewModelColumn {
 
     public SimpleStringProperty columnNameProperty() {
         return columnName;
+    }
+    public SimpleBooleanProperty disableSelectedProperty() {
+        return disableSelected;
+    }
+    public SimpleBooleanProperty disableButtonProperty() {
+        return disableButton;
     }
 
 

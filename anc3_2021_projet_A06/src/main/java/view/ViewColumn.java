@@ -2,6 +2,7 @@ package view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
@@ -24,8 +25,12 @@ public class ViewColumn extends VBox {
     private Button left = new Button("⬅");
     private Button right = new Button("➡");
     private HBox up = new HBox();
+    private HBox middle = new HBox();
     private HBox down = new HBox();
+    private Button button = new Button("Delete selected");
     private ViewModelBoard viewModelBoard;
+    private final CheckBox selected = new CheckBox("suppr");
+    //private Button button = new Button("Delete selected");
 
 
     public ViewColumn(Column column, ViewModelBoard viewModelBoard) {
@@ -41,17 +46,25 @@ public class ViewColumn extends VBox {
 
     private void configColumn() {
         up.getChildren().addAll(left, editableLabel, right);
+        middle.getChildren().addAll(selected);
         down.getChildren().addAll(cardListView);
-        this.getChildren().addAll(up, down);
+        //this.getChildren().addAll(up,middle, down,button);
         up.setPrefWidth(250);
         this.setPrefWidth(250);
         up.setAlignment(Pos.CENTER);
+        middle.setAlignment(Pos.CENTER);
+
+        button.setAlignment(Pos.TOP_RIGHT);
+
+
     }
 
     private void configData() {
         cardListView.itemsProperty().bind(viewModelColumn.cardsProperty());
         left.disableProperty().bind(viewModelColumn.disableColumnLeftProperty());
         right.disableProperty().bind(viewModelColumn.disableColumnRightProperty());
+        selected.disableProperty().bindBidirectional(viewModelColumn.disableSelectedProperty());
+        button.disableProperty().bind(viewModelColumn.disableButtonProperty());
 
     }
 
@@ -67,8 +80,10 @@ public class ViewColumn extends VBox {
                 setGraphic(viewCard);
             }
         });
+
     }
     public void configAction(){
+
 
         left.setOnMouseClicked(e -> {
             viewModelColumn.moveLeft();
@@ -86,6 +101,7 @@ public class ViewColumn extends VBox {
                 viewModelColumn.removeColumn();
             }
         });
+
 
     }
 }

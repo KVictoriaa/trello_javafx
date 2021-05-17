@@ -1,8 +1,11 @@
 package view;
 
 import javafx.geometry.Orientation;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.Column;
 import mvvm.ViewModelBoard;
 
@@ -12,20 +15,24 @@ import java.util.List;
 public class ViewBoard extends ListView<Column> {
     private List<ViewColumn> columns = new ArrayList<>();
     private ViewModelBoard viewModelBoard;
+    private HBox vBox = new HBox();
+    private Button button = new Button("Delete selected");
 
 
     public ViewBoard(ViewModelBoard viewModelBoard) {
         this.viewModelBoard = viewModelBoard;
         this.setOrientation(Orientation.HORIZONTAL);
         this.setPrefWidth(1000);
+        this.getChildren().addAll(button);
+
         configData();
         customize();
         configAction();
     }
-    private void configData(){
-
-        this.itemsProperty().bind(viewModelBoard.columnsProperty());
-
+    private void configData(){ this.itemsProperty().bind(viewModelBoard.columnsProperty());
+       button.disableProperty().bind(viewModelBoard.disableButtonProperty());
+        this.getChildren().addAll(button);
+        //tton.disableProperty().bind(viewModelBoard);
     }
     private void customize(){
         this.setCellFactory(view-> new ListCell<>() {
@@ -37,7 +44,7 @@ public class ViewBoard extends ListView<Column> {
                     viewColumn = new ViewColumn(column,viewModelBoard);
                 }
                 setGraphic(viewColumn);
-            }
+         }
         });
     }
     private void configAction(){

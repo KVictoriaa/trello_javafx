@@ -165,5 +165,6 @@ public class Board {
         column3.addCardListDao(card5);
         column3.addCardListDao(card6);
     }
+    public boolean isSelecte() {return getColumns().isEmpty();}
 
 }
