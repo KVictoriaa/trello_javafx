@@ -30,10 +30,13 @@ public class ViewColumn extends VBox {
     private Button button = new Button("Delete selected");
     private ViewModelBoard viewModelBoard;
     private final CheckBox selected = new CheckBox("suppr");
+    private Column column;
+
     //private Button button = new Button("Delete selected");
 
 
     public ViewColumn(Column column, ViewModelBoard viewModelBoard) {
+        this.column = column;
         this.viewModelBoard = viewModelBoard;
         viewModelColumn = new ViewModelColumn(column, viewModelBoard);
         editableLabel = new EditableLabel(viewModelColumn.columnNameProperty(), null, viewModelColumn, null);
@@ -48,13 +51,12 @@ public class ViewColumn extends VBox {
         up.getChildren().addAll(left, editableLabel, right);
         middle.getChildren().addAll(selected);
         down.getChildren().addAll(cardListView);
-        //this.getChildren().addAll(up,middle, down,button);
+        this.getChildren().addAll(up,middle, down);
         up.setPrefWidth(250);
         this.setPrefWidth(250);
         up.setAlignment(Pos.CENTER);
         middle.setAlignment(Pos.CENTER);
 
-        button.setAlignment(Pos.TOP_RIGHT);
 
 
     }
@@ -63,8 +65,7 @@ public class ViewColumn extends VBox {
         cardListView.itemsProperty().bind(viewModelColumn.cardsProperty());
         left.disableProperty().bind(viewModelColumn.disableColumnLeftProperty());
         right.disableProperty().bind(viewModelColumn.disableColumnRightProperty());
-        selected.disableProperty().bindBidirectional(viewModelColumn.disableSelectedProperty());
-        button.disableProperty().bind(viewModelColumn.disableButtonProperty());
+
 
     }
 
@@ -102,7 +103,14 @@ public class ViewColumn extends VBox {
             }
         });
 
-
+        selected.setOnAction(e-> {
+            if(selected.isSelected()) {
+                viewModelBoard.addColumn(column);
+            }
+            else{
+                viewModelBoard.retireColumn(column);
+            }
+        });
     }
 }
 

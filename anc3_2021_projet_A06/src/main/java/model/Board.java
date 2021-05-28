@@ -11,6 +11,7 @@ public class Board {
     private int id =0;
     private ObservableList<Column> columns = FXCollections.observableArrayList();
     public ColumnDao columnDao = new ColumnDao();
+    private ObservableList<Column> selectedColumns = FXCollections.observableArrayList();
 
     public Board() {
 
@@ -47,6 +48,20 @@ public class Board {
         Collections.sort(columns, new TriColumnParPosition());
         return FXCollections.unmodifiableObservableList(columns);
     }
+    public ObservableList<Column> getSelectedColumns() {
+        return FXCollections.unmodifiableObservableList(selectedColumns);
+    }
+
+    public void addColumn(Column column){
+
+        selectedColumns.add(column);
+
+    }
+    public void addAllSelectedColumn(ObservableList<Column> selectColumns) {
+
+        columns.addAll( selectColumns);
+
+    }
     public void addColumns(Column column){
 
         columns.add(column);
@@ -65,7 +80,14 @@ public class Board {
         columnDao.update(column);
         Collections.sort(columns,new TriColumnParPosition());
     }
-
+    public void removeColumn(Column column){
+        selectedColumns.remove(column);
+    }
+    public void removeColumns() {
+        selectedColumns = FXCollections.observableArrayList();
+    }
+    public void removeAllSelectedColumns(ObservableList<Column>selectColumns) {
+        columns.removeAll(selectColumns);}
     public void removeColumns(Column column){
 
         for (int k = column.getPosition(); k < columns.size(); ++k) {

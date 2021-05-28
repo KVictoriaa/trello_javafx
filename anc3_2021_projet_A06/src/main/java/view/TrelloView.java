@@ -61,7 +61,7 @@ public class TrelloView extends VBox {
         main_menu.getMenus().addAll(fichier, edition);
         menu.getChildren().add(main_menu);
         up.getChildren().addAll(editableLabel);
-        down.getChildren().addAll(viewBoard);
+        down.getChildren().addAll(viewBoard,button);
         this.getChildren().addAll(menu, up, down);
 
 
@@ -101,6 +101,10 @@ public class TrelloView extends VBox {
                 viewModelBoard.redo();
             }
         });
+        button.setOnAction(e-> {
+            viewModelBoard.supprime();
+            //viewModelBoard.getBoard().getSelectColumns().clear();
+        });
     }
 
     public void configData() {
@@ -108,7 +112,7 @@ public class TrelloView extends VBox {
         refaire.disableProperty().bind(viewModelBoard.redoDisableProperty());
         annuler.textProperty().bind(Bindings.concat(new SimpleStringProperty("Annuler"+"   "), viewModelBoard.nameActionProperty(), new SimpleStringProperty("      CTRL+Z")));
         refaire.textProperty().bind(Bindings.concat(new SimpleStringProperty("Refaire"+"   "), viewModelBoard.nameActionRedoProperty(), new SimpleStringProperty("      CTRL+Y")));
-        button.disableProperty().bind(viewModelBoard.disableButtonProperty());
+        button.disableProperty().bindBidirectional(viewModelBoard.selectedProperty());
     }
 /*je
 vais afficher le button,

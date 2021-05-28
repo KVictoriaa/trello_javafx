@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import model.Board;
 import model.Column;
 import mvvm.board.AddColumnCommand;
+import mvvm.board.RemoveAllSelectedColumns;
 import mvvm.board.SetTitleBoardCommand;
 
 public class ViewModelBoard {
@@ -19,6 +20,8 @@ public class ViewModelBoard {
     private SimpleStringProperty boardName = new SimpleStringProperty();
     private ViewModelColumn viewModelColumn;
     private final SimpleBooleanProperty disableButton = new SimpleBooleanProperty();
+    private SimpleBooleanProperty deleteDisable = new SimpleBooleanProperty();
+    private final SimpleBooleanProperty selected = new SimpleBooleanProperty();
 
 
 
@@ -29,6 +32,7 @@ public class ViewModelBoard {
 
     public void configData(){
         columns.setValue(board.getColumns());
+        selected.setValue(board.getSelectedColumns().size() == 0);
         refreshUndoRedoProperty();
         boardName.setValue(board.getName());
         disableButton.set(board.isSelecte());
@@ -77,6 +81,36 @@ public class ViewModelBoard {
         Processor.getInstance().execute(new SetTitleBoardCommand(board ,title ,board.getName()));
         refreshUndoRedoProperty();
     }
+    public void addColumn(Column column) {
+
+        board.addColumn(column);
+        selected.setValue(board.getSelectedColumns().size() == 0);
+
+
+
+    }
+    public void retireColumn(Column column) {
+
+        board.removeColumn(column);
+        selected.setValue(board.getSelectedColumns().size() == 0);
+
+
+    }
+    public void supprime() {
+
+        board.getSelectedColumns().forEach(c->{
+            //RemoveColumnCommand removeColumnCommand = new RemoveColumnCommand(c,c.getPosition());
+            //Processor.getInstance().execute(removeColumnCommand);
+            RemoveAllSelectedColumns removeAllSelectedColumns = new RemoveAllSelectedColumns(this.board,board.getSelectedColumns());
+            Processor.getInstance().execute(removeAllSelectedColumns);
+        });
+        board.removeColumns();
+        selected.setValue(board.getSelectedColumns().size() == 0);
+        refreshUndoRedoProperty();
+        disableButton.set(board.isSelecte());
+
+
+    }
 
     public SimpleListProperty<Column> columnsProperty() {
         return columns;
@@ -96,9 +130,11 @@ public class ViewModelBoard {
     public SimpleStringProperty boardNameProperty() {
         return boardName;
     }
+    public SimpleBooleanProperty selectedProperty() {
+        return selected;
+    }
     public SimpleBooleanProperty disableButtonProperty() {
         return disableButton;
     }
-
 
 }

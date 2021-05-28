@@ -60,6 +60,7 @@ public class Trello {
         statement.execute(sql);
     }
     private static void seedboard(Connection conn) throws SQLException {
+        clearDB(conn);
         String sql = "INSERT INTO board(id, name) VALUES(?,?);";
         PreparedStatement preparedStatement = conn.prepareStatement (sql);
         preparedStatement.setInt (1, 1);
@@ -80,7 +81,6 @@ public class Trello {
               }
            else {
                Connection connection = DriverManager.getConnection(url);
-               clearDB(connection);
                configDB(connection);
                createTables(connection);
                seedboard(connection);

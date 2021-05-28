@@ -29,9 +29,9 @@ public class ViewBoard extends ListView<Column> {
         customize();
         configAction();
     }
-    private void configData(){ this.itemsProperty().bind(viewModelBoard.columnsProperty());
-       button.disableProperty().bind(viewModelBoard.disableButtonProperty());
-        this.getChildren().addAll(button);
+    private void configData(){
+        this.itemsProperty().bind(viewModelBoard.columnsProperty());
+
         //tton.disableProperty().bind(viewModelBoard);
     }
     private void customize(){
